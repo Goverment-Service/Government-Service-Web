@@ -81,7 +81,7 @@ function NavbarContentLayout({
 }
 
 export default function NavbarContent(): ReactNode {
-  const mobileSidebar = useNavbarMobileSidebar();
+  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
 
   const items = useNavbarItems();
   const [leftItems, rightItems] = splitNavbarItems(items);
@@ -89,27 +89,59 @@ export default function NavbarContent(): ReactNode {
   const searchBarItem = items.find((item) => item.type === 'search');
 
   return (
-    <NavbarContentLayout
-      brand={
-        <>
-          {mobileSidebar.shouldRender && <NavbarMobileSidebarToggle />}
-          <NavbarBrand />
-        </>
-      }
-      links={<NavbarItems items={leftItems} />}
-      right={
-        // TODO stop hardcoding items?
-        // Ask the user to add the respective navbar items => more flexible
-        <>
-          <NavbarItems items={rightItems} />
-          <NavbarColorModeToggle />
-          {!searchBarItem && (
-            <NavbarSearch>
-              <SearchBar />
-            </NavbarSearch>
-          )}
-        </>
-      }
-    />
+    <>
+      <NavbarContentLayout
+        brand={
+          <>
+            <button
+              className="navbar__mobile-toggle"
+              type="button"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle navigation bar"
+            >
+              <svg viewBox="0 0 30 30" width="22" height="22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none">
+                <path d="M4 7h22M4 15h22M4 23h22" />
+              </svg>
+            </button>
+            <NavbarBrand />
+          </>
+        }
+        links={<NavbarItems items={leftItems} />}
+        right={
+          <>
+            <NavbarItems items={rightItems} />
+          </>
+        }
+      />
+      
+      {/* Mobile Sidebar/Menu */}
+      {mobileMenuOpen && (
+        <div className="navbar-sidebar">
+          <div className="navbar-sidebar__brand">
+            <NavbarBrand />
+            <button
+              className="navbar-sidebar__close"
+              type="button"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none">
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          <div className="navbar-sidebar__items">
+            <div className="navbar-sidebar__item menu">
+              <ul className="menu__list">
+                {items.map((item, i) => (
+                  <li key={i} className="menu__list-item" onClick={() => setMobileMenuOpen(false)}>
+                    <NavbarItem {...item} className={clsx(item.className, "menu__link")} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

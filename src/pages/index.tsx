@@ -266,18 +266,7 @@ export default function Home(): React.ReactElement {
         </div>
       </section>
 
-      <section className="os-section os-section--tight">
-        <div className="os-container">
-          <Reveal>
-            <div className={styles.techIntro}>
-              <span className="os-eyebrow" style={{textAlign: 'center'}}>
-                Built On Open Standards
-              </span>
-            </div>
-            <TechLogos />
-          </Reveal>
-        </div>
-      </section>
+
 
       <section className="os-section">
         <div className="os-container">

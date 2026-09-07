@@ -414,6 +414,15 @@
     grid-template-columns: 1fr;
   }
 
+  .aboutPhotoGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .aboutPhoto:last-child {
+    margin-top: 0;
+  }
+
   .quickstartGrid {
     grid-template-columns: 1fr;
   }
