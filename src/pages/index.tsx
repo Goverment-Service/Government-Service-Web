@@ -11,7 +11,7 @@ import TechLogos from '@site/src/components/TechLogos';
 import features from '@site/src/data/generated/features';
 import styles from './index.module.css';
 
-const GITHUB_URL = 'https://github.com/openschool-org/openschool';
+const GITHUB_URL = 'https://github.com/Krishmal2004/Government_Service_Navigator';
 
 function GithubIcon(): React.ReactElement {
   return (
@@ -52,7 +52,32 @@ const badges = [
   },
 ];
 
-const services = features.filter((f) => f.homeFeatured);
+const services = [
+  {
+    slug: 'citizen-portal',
+    title: 'Citizen Portal',
+    icon: 'UserRound',
+    summary: 'A Flutter-based mobile app for citizens to discover, apply for, and track government services.',
+  },
+  {
+    slug: 'officer-dashboard',
+    title: 'Officer Dashboard',
+    icon: 'Briefcase',
+    summary: 'A React and Vite web dashboard for government officers to manage applications and workflows.',
+  },
+  {
+    slug: 'ai-agents',
+    title: 'AI Agent Workflows',
+    icon: 'Bot',
+    summary: 'Intelligent AI agents that assist with application verification and citizen support.',
+  },
+  {
+    slug: 'unified-api',
+    title: 'Unified Backend API',
+    icon: 'Building2',
+    summary: 'A robust ASP.NET Core and PostgreSQL backend powering all platforms with secure data handling.',
+  },
+];
 
 type CommunityCard = {
   icon: React.ComponentType<{size?: number; strokeWidth?: number}>;
@@ -67,7 +92,7 @@ const communityCards: CommunityCard[] = [
   {
     icon: GitBranch,
     title: 'Contribute',
-    desc: 'Help shape OpenSchool by submitting features, fixes, or improvements.',
+    desc: 'Help shape Government Service Navigator by submitting features, fixes, or improvements.',
     linkLabel: 'Local Development Setup',
     linkTo: '/docs/contributing',
   },
@@ -81,23 +106,24 @@ const communityCards: CommunityCard[] = [
   {
     icon: MessageCircle,
     title: 'Join the Discussion',
-    desc: 'Ask questions, share ideas, and talk with other people running OpenSchool.',
+    desc: 'Ask questions, share ideas, and talk with other people running Government Service Navigator.',
     linkLabel: 'GitHub Discussions',
     linkHref: `${GITHUB_URL}/discussions`,
   },
 ];
 
-const QUICK_START = `git clone https://github.com/openschool-org/openschool.git
-cd openschool
+const QUICK_START = `git clone https://github.com/Krishmal2004/Government_Service_Navigator.git
+cd Government_Service_Navigator
 
 # Postgres
-cd backend && docker compose up -d
+docker compose up -d
 
-# Backend - migrations run automatically
-go run ./cmd/api/main.go
+# Backend API
+cd backend
+dotnet run --project src/GSN.Api
 
-# Frontend
-cd ../frontend && pnpm install && pnpm dev`;
+# Web Dashboard
+cd ../web && npm install && npm run dev`;
 
 export default function Home(): React.ReactElement {
   const heroPhotoSrc = useBaseUrl('img/school/school1.webp');
@@ -106,12 +132,12 @@ export default function Home(): React.ReactElement {
 
   return (
     <Layout
-      title="OpenSchool"
-      description="A free, open-source, self-hosted school management system covering academic years, students, guardians, attendance, timetables, and more — built for Sri Lankan schools.">
+      title="Government Service Navigator"
+      description="Multi-platform system for delivering and managing digital government services. Backend API, Web Dashboard, Mobile App, and Agent Layer.">
       <SeoHead
         path="/"
-        title="Open Source School Management for Sri Lankan Schools"
-        description="A free, open-source, self-hosted school management system covering academic years, students, guardians, attendance, timetables, and more — built for Sri Lankan schools."
+        title="Digital Government Service Navigator"
+        description="Multi-platform system for delivering and managing digital government services."
       />
 
       <header className={styles.hero}>
@@ -119,11 +145,10 @@ export default function Home(): React.ReactElement {
           <div className={styles.heroGrid}>
             <div className={styles.heroCopy}>
               <h1 className={`os-heading ${styles.heroTitle}`}>
-                One platform for your entire school&apos;s records
+                Deliver and manage digital government services
               </h1>
               <p className={`os-lead ${styles.heroLead}`}>
-                Academic years, classes, students, guardians, attendance, and timetables - in one
-                self-hosted system. No more spreadsheets. No more paper registers.
+                A multi-platform system connecting citizens and officers. Featuring an ASP.NET Core backend, React web dashboard, Flutter mobile app, and AI agent layer.
               </p>
               <div className={styles.heroActions}>
                 <Link className="os-btn os-btn--primary" to="/docs/intro">
@@ -188,12 +213,11 @@ export default function Home(): React.ReactElement {
                   Quick Start
                 </span>
                 <h2 className={`os-heading ${styles.quickstartTitle}`}>
-                  Ready to self-host OpenSchool for your school?
+                  Ready to deploy Government Service Navigator?
                 </h2>
                 <p className={styles.quickstartText}>
-                  Clone the repo, start Postgres, and run the backend and frontend locally in a
-                  few commands. The setup guide walks through the rest - first-run admin
-                  registration, the school setup wizard, and every module hands-on.
+                  Clone the repo, start Postgres, and run the .NET backend and React dashboard locally in a
+                  few commands. The setup guide walks through the rest - including the Flutter mobile app and AI agent layer.
                 </p>
                 <Link className="os-btn os-btn--primary" to="/docs/setup">
                   Read the Setup Guide
@@ -216,12 +240,12 @@ export default function Home(): React.ReactElement {
               <span className="os-eyebrow">What We Automate</span>
               <div className={styles.servicesIntroGrid}>
                 <h2 className={`os-heading ${styles.servicesTitle}`}>
-                  Every school operation, one platform
+                  Every public service, one platform
                 </h2>
                 <p className={styles.servicesDesc}>
-                  From opening an academic year to marking today&apos;s attendance, OpenSchool
+                  From processing citizen requests to AI-assisted identity verification, GSN
                   replaces disconnected tools with one consistent, API-driven system that scales
-                  with your school.
+                  with your municipality.
                 </p>
               </div>
             </div>
@@ -264,16 +288,15 @@ export default function Home(): React.ReactElement {
                 <img src={aboutPhotoSrc2} alt="Students playing together at school" className={styles.aboutPhoto} loading="lazy" decoding="async" />
               </div>
               <div className={styles.aboutCopy}>
-                <span className="os-eyebrow">About OpenSchool</span>
+                <span className="os-eyebrow">About Government Service Navigator</span>
                 <h2 className={`os-heading ${styles.aboutTitle}`}>
-                  Infrastructure built for how Sri Lankan schools actually run
+                  Infrastructure built for modern digital government
                 </h2>
                 <p className={styles.aboutText}>
-                  Most schools still track students, grades, and attendance across paper
-                  registers and disconnected spreadsheets. OpenSchool gives every school a
-                  structured, secure, self-hosted system of record - modeled around the full
-                  Grade 1-13 flow, from Scholarship years through O/Level and A/Level streams,
-                  and the people who keep a school running.
+                  Moving beyond paper forms and disconnected departments. Government Service Navigator
+                  provides a structured, secure system of record for public services—offering citizens a mobile
+                  app to track their applications, while equipping officers with the dashboard and AI tools
+                  needed to process them efficiently.
                 </p>
                 <Link className={styles.aboutLink} to="/about">
                   Learn more about our mission
@@ -291,10 +314,10 @@ export default function Home(): React.ReactElement {
             <div className={styles.communityIntro}>
               <span className="os-eyebrow">Join the Community</span>
               <h2 className={`os-heading ${styles.communityTitle}`}>
-                We&apos;re building OpenSchool with you
+                We&apos;re building Government Service Navigator with you
               </h2>
               <p className={styles.communityDesc}>
-                It&apos;s a volunteer-run, open-source project - no sales team, no support inbox.
+                It&apos;s a volunteer-run, open-source project.
                 Everything happens on GitHub.
               </p>
             </div>

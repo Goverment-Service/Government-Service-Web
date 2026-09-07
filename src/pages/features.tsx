@@ -13,22 +13,20 @@ export default function Features(): React.ReactElement {
 
   return (
     <Layout
-      title="Features"
-      description={`${features.length} integrated modules covering academic years, classes, students, guardians, attendance, timetables, and more.`}>
+      title="Capabilities"
+      description="The core capabilities spanning Catalog Management, Application Intake, Validation, and Financial Analytics.">
       <SeoHead
         path="/features"
-        title={`Features - ${features.length} Integrated School Management Modules`}
-        description={`${features.length} integrated modules covering academic years, classes, students, guardians, attendance, timetables, and more.`}
+        title="Capabilities - Government Service Navigator"
+        description="The core capabilities spanning Catalog Management, Application Intake, Validation, and Financial Analytics."
       />
       <header className="os-page-header">
         <div className="os-container">
           <div className={styles.introGrid}>
             <div className={styles.introInner}>
-              <h1 className={`os-heading ${styles.title}`}>{features.length} modules. One school system.</h1>
+              <h1 className={`os-heading ${styles.title}`}>Capabilities & Operations</h1>
               <p className={`os-lead ${styles.lead}`}>
-                Every capability your school office, teachers, and admin team need - from opening
-                an academic year to marking today&apos;s attendance - built into one consistent
-                admin, teacher, student, and parent experience.
+                The core capabilities spanning Catalog Management, Application Intake, Validation, and Financial Analytics — exposed through robust REST APIs and powered by Agentic AI.
               </p>
             </div>
             <div className={styles.introPhotoWrap}>

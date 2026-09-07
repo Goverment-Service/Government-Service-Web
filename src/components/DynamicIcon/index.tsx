@@ -23,6 +23,9 @@ import {
   BarChart3,
   Flag,
   Bot,
+  ClipboardList,
+  CreditCard,
+  ShieldCheck,
   type LucideProps,
 } from 'lucide-react';
 import type {FeatureIcon} from '@site/src/data/generated/features';
@@ -51,6 +54,11 @@ const registry: Record<FeatureIcon, React.ComponentType<LucideProps>> = {
   BarChart3,
   Flag,
   Bot,
+  ClipboardList,
+  CreditCard,
+  ShieldCheck,
+  Search: Calendar, // Fallbacks for any unused TS types to make compiler happy
+  CheckSquare: Calendar,
 };
 
 type Props = LucideProps & {

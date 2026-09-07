@@ -22,12 +22,12 @@ function Footer(): ReactNode {
             <Link to="/" className={styles.brandRow}>
               {logo && <img src={logoSrc} alt="" aria-hidden="true" className={styles.brandLogo} width={26} height={26} />}
               <span className={styles.brandName}>
-                <span className={styles.brandNameOpen}>Open</span>
-                <span className={styles.brandNameSchool}>School</span>
+                <span className={styles.brandNameOpen}>Gov</span>
+                <span className={styles.brandNameSchool}>Navigator</span>
               </span>
             </Link>
             <p className={styles.brandTagline}>
-              Digital infrastructure for Sri Lankan schools.
+              Multi-platform system for delivering and managing digital government services.
             </p>
           </div>
 

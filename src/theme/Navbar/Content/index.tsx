@@ -20,8 +20,8 @@ function NavbarBrand(): ReactNode {
         <img src={mark} className="navbar-brand-mark-img" alt="OpenSchool" width={44} height={44} decoding="async" fetchPriority="high" />
       </span>
       <span className="navbar-brand-text">
-        <span className="navbar-brand-text-open">Open</span>
-        <span className="navbar-brand-text-school">School</span>
+        <span className="navbar-brand-text-open">Gov</span>
+        <span className="navbar-brand-text-school">Navigator</span>
       </span>
     </Link>
   );

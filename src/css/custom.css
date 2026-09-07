@@ -502,3 +502,30 @@ body { margin: 0; font-family: var(--os-font-display); }
 a { text-decoration: none; }
 .navbar { display: flex; align-items: center; justify-content: center; }
 
+/* ---------- Markdown Content ---------- */
+.markdown-body pre {
+  background-color: #292D3E;
+  color: #bfc7d5;
+  padding: 1.2rem;
+  border-radius: var(--os-radius-lg);
+  overflow-x: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin-bottom: 1.5rem;
+}
+
+.markdown-body pre code {
+  color: inherit;
+  font-family: inherit;
+}
+
+.markdown-body :not(pre) > code {
+  background-color: var(--os-bg-alt);
+  color: var(--os-accent-dark);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.85em;
+}

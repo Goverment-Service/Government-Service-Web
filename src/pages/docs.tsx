@@ -8,7 +8,6 @@ import remarkGfm from 'remark-gfm';
 import introMd from '../../docs/intro.md?raw';
 import setupMd from '../../docs/setup.md?raw';
 import contributingMd from '../../docs/contributing.md?raw';
-import thunderidMd from '../../docs/thunderid.md?raw';
 import architectureMd from '../../docs/architecture.md?raw';
 
 function stripFrontmatter(md: string) {
@@ -20,7 +19,6 @@ const docsFiles = {
   '/docs/intro': { title: 'Introduction', content: stripFrontmatter(introMd) },
   '/docs/setup': { title: 'Setup Walkthrough', content: stripFrontmatter(setupMd) },
   '/docs/contributing': { title: 'Local Development Setup', content: stripFrontmatter(contributingMd) },
-  '/docs/thunderid': { title: 'ThunderID Setup', content: stripFrontmatter(thunderidMd) },
   '/docs/architecture': { title: 'Architecture', content: stripFrontmatter(architectureMd) },
 };
 
@@ -36,7 +34,6 @@ function DocViewer() {
         <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
           <li><Link to="/docs/intro" style={{ color: location.pathname === '/docs/intro' || location.pathname === '/docs' ? 'var(--os-accent)' : 'var(--os-text)' }}>Introduction</Link></li>
           <li><Link to="/docs/contributing" style={{ color: location.pathname === '/docs/contributing' ? 'var(--os-accent)' : 'var(--os-text)' }}>Local Development Setup</Link></li>
-          <li><Link to="/docs/thunderid" style={{ color: location.pathname === '/docs/thunderid' ? 'var(--os-accent)' : 'var(--os-text)' }}>ThunderID Setup</Link></li>
           <li><Link to="/docs/setup" style={{ color: location.pathname === '/docs/setup' ? 'var(--os-accent)' : 'var(--os-text)' }}>Setup Walkthrough</Link></li>
           <li><Link to="/docs/architecture" style={{ color: location.pathname === '/docs/architecture' ? 'var(--os-accent)' : 'var(--os-text)' }}>Architecture</Link></li>
         </ul>

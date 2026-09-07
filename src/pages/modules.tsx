@@ -8,29 +8,29 @@ import features, {type FeatureGroup} from '@site/src/data/generated/features';
 import styles from './modules.module.css';
 
 const layerMeta: Record<FeatureGroup, {order: number; eyebrow: string; title: string; desc: string}> = {
-  foundation: {
+  agent1: {
     order: 1,
-    eyebrow: 'Layer 01 · Foundation',
-    title: 'Platform Foundation',
-    desc: 'The base every other module sits on - the school profile, ThunderID-backed identity, the in-app leadership hierarchy, and the audit log.',
+    eyebrow: 'Agent 1 · Supun',
+    title: 'Intake & Planning',
+    desc: 'Acts as the first point of contact. It interprets what the citizen is actually asking for, matches it to the correct government service, and lays out the sequence of steps.',
   },
-  structure: {
+  agent2: {
     order: 2,
-    eyebrow: 'Layer 02 · Academic Structure',
-    title: 'Academic Structure',
-    desc: 'How a school year is organized before a single student is enrolled - years, the full Grade 1-13 flow, streams, mediums, and curriculum.',
+    eyebrow: 'Agent 2 · Parami',
+    title: 'Eligibility, Payments & Orchestrator',
+    desc: 'Verifies whether the citizen qualifies for the matched service, handles payments and refunds, and functions as the Workflow Orchestrator triggering Agents 1, 3, and 4 in order.',
   },
-  people: {
+  agent3: {
     order: 3,
-    eyebrow: 'Layer 03 · People & Classes',
-    title: 'People & Classes',
-    desc: 'Where the academic structure meets real people - students, teachers, guardians, non-academic staff, houses, and the prefect board.',
+    eyebrow: 'Agent 3 · Krishmal',
+    title: 'Action & Tool Agent',
+    desc: 'Performs the concrete actions needed to move the case forward: calculating the applicable fee, finding an open appointment slot, and pre-filling the application form.',
   },
-  operations: {
+  agent4: {
     order: 4,
-    eyebrow: 'Layer 04 · Daily Operations',
-    title: 'Daily Operations',
-    desc: 'What runs every school day, once the structure and people are in place - attendance, records, promotion, timetables, notifications, and reports.',
+    eyebrow: 'Agent 4 · Chathuka',
+    title: 'Validation & Safety',
+    desc: 'Performs a final sanity check — validating data format and screening for duplicates — before the case ever reaches a human Verifying Officer.',
   },
 };
 
@@ -45,21 +45,19 @@ const layers = Object.entries(layerMeta)
 export default function Modules(): React.ReactElement {
   return (
     <Layout
-      title="Modules"
-      description={`A layered look at how OpenSchool's ${features.length} modules build on each other, from the school profile up to daily operations.`}>
+      title="Architecture & Agents"
+      description={`A look at how Government Service Navigator's Agentic AI Architecture orchestrates workflows.`}>
       <SeoHead
         path="/modules"
-        title="Modules Architecture - Platform Layers"
-        description={`A layered look at how OpenSchool's ${features.length} modules build on each other, from the school profile up to daily operations.`}
+        title="Agentic AI Architecture - Government Service Navigator"
+        description={`A look at how Government Service Navigator's Agentic AI Architecture orchestrates workflows.`}
       />
       <header className="os-page-header">
         <div className="os-container">
           <div className={styles.introInner}>
-            <h1 className={`os-heading ${styles.title}`}>How the {features.length} modules build on each other</h1>
+            <h1 className={`os-heading ${styles.title}`}>The 4-Agent Pipeline</h1>
             <p className={`os-lead ${styles.lead}`}>
-              OpenSchool isn&apos;t {features.length} disconnected features - it&apos;s four layers
-              that build on one another: a secured foundation, the academic structure for a year,
-              the people inside it, and the daily operations that run on top.
+              Each citizen request flows through four agents in sequence, forming a single automated pipeline. Every agent has one narrow, well-defined job and only the tools it is allow-listed to use.
             </p>
           </div>
         </div>
