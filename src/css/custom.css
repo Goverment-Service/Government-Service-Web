@@ -379,11 +379,11 @@ a {
   }
   
   .navbar__items--center {
-    display: none;
+    display: none !important;
   }
   
   .navbar__items--right {
-    display: none;
+    display: none !important;
   }
 }
 
