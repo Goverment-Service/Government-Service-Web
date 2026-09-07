@@ -10,8 +10,10 @@ import setupMd from '../../docs/setup.md?raw';
 import contributingMd from '../../docs/contributing.md?raw';
 import architectureMd from '../../docs/architecture.md?raw';
 
+import styles from './docs.module.css';
+
 function stripFrontmatter(md: string) {
-  return md.replace(/^---\n.*?\n---\n/s, '');
+  return md.replace(/^---\r?\n.*?\r?\n---\r?\n/s, '');
 }
 
 const docsFiles = {
@@ -27,9 +29,9 @@ function DocViewer() {
   const doc = docsFiles[location.pathname as keyof typeof docsFiles] || { title: 'Not Found', content: '# Page Not Found\n\nThe requested documentation page could not be found.' };
 
   return (
-    <div style={{ display: 'flex', minHeight: 'calc(100vh - 64px - 200px)' }}>
+    <div className={styles.docsLayout}>
       {/* Basic Docs Sidebar */}
-      <aside style={{ width: '250px', borderRight: '1px solid var(--os-border)', padding: '2rem' }}>
+      <aside className={styles.docsSidebar}>
         <h3 style={{ fontFamily: 'var(--os-font-display)', marginBottom: '1rem', fontSize: '1rem', color: 'var(--os-text-muted)' }}>Documentation</h3>
         <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
           <li><Link to="/docs/intro" style={{ color: location.pathname === '/docs/intro' || location.pathname === '/docs' ? 'var(--os-accent)' : 'var(--os-text)' }}>Introduction</Link></li>
@@ -40,7 +42,7 @@ function DocViewer() {
       </aside>
 
       {/* Doc Content */}
-      <main style={{ flex: 1, padding: '2rem 4rem', maxWidth: '800px' }}>
+      <main className={styles.docsMain}>
         <div className="markdown-body" style={{ lineHeight: '1.6' }}>
           <ReactMarkdown remarkPlugins={[remarkGfm]}>
             {doc.content}
