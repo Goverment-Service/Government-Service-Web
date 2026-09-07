@@ -6,7 +6,7 @@ import About from './pages/about'
 import Features from './pages/features'
 import Modules from './pages/modules'
 import Community from './pages/community'
-import Changelog from './pages/changelog'
+//import Changelog from './pages/changelog'
 import Privacy from './pages/privacy'
 import Docs from './pages/docs'
 
@@ -20,7 +20,7 @@ function App() {
       <Route path="/features" element={<Features />} />
       <Route path="/modules" element={<Modules />} />
       <Route path="/community" element={<Community />} />
-      <Route path="/changelog" element={<Changelog />} />
+      {/* <Route path="/changelog" element={<Changelog />} /> */}
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/docs/*" element={<Docs />} />
     </Routes>
