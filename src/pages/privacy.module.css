@@ -1,0 +1,135 @@
+.introInner {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  margin: 1.1rem 0 0.6rem;
+}
+
+.effective {
+  color: var(--os-text-muted);
+  font-size: 0.92rem;
+  margin: 0;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 3rem;
+  align-items: start;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.toc {
+  position: sticky;
+  top: 6.5rem;
+}
+
+.tocLabel {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--os-text-muted);
+  margin-bottom: 1rem;
+}
+
+.tocList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  border-left: 2px solid var(--os-border);
+}
+
+.tocList a {
+  display: block;
+  padding: 0.1rem 0 0.1rem 1rem;
+  font-size: 0.88rem;
+  color: var(--os-text-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.tocList a:hover {
+  color: var(--os-accent);
+}
+
+.article {
+  padding: clamp(2rem, 4vw, 3rem);
+  line-height: 1.75;
+  color: var(--os-text-muted);
+}
+
+.lead {
+  font-size: 1.05rem;
+  color: var(--os-text);
+  margin-bottom: 2rem;
+}
+
+.h2 {
+  font-family: var(--os-font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--os-text);
+  margin: 2.25rem 0 0.85rem;
+  scroll-margin-top: 6rem;
+}
+
+.article :global(h2:first-of-type) {
+  margin-top: 0;
+}
+
+.article :global(ul) {
+  margin: 0 0 1.1rem;
+  padding-left: 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.article :global(p) {
+  margin: 0 0 1.1rem;
+}
+
+.article :global(a) {
+  color: var(--os-accent);
+  font-weight: 600;
+}
+
+.article :global(strong) {
+  color: var(--os-text);
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .toc {
+    position: static;
+  }
+
+  .tocList {
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-left: none;
+    gap: 0.5rem 1rem;
+  }
+
+  .tocList a {
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--os-border);
+    border-radius: var(--os-radius-btn);
+  }
+}

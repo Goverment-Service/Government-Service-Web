@@ -1,220 +1,155 @@
-import { useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import Link from '@docusaurus/Link';
+import Layout from '@theme/Layout';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import {ShieldCheck, MapPinned, Code, TrendingUp, Building2, Presentation, UsersRound, GraduationCap, ArrowRight} from 'lucide-react';
+import SeoHead from '@site/src/components/SeoHead';
+import styles from './about.module.css';
 
-function RevealItem({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (!ref.current) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('gsn-reveal--visible');
-          observer.unobserve(entry.target);
-        }
-      },
-      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
-    );
-    observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-  return (
-    <div ref={ref} className="gsn-reveal" style={{ transitionDelay: `${delay}s` }}>
-      {children}
-    </div>
-  );
-}
-
-const TEAM = [
-  { name: 'Sarah Mitchell', role: 'Director of Digital Services', initials: 'SM', color: '#1a56db' },
-  { name: 'James Okafor', role: 'Head of Technology', initials: 'JO', color: '#059669' },
-  { name: 'Priya Ramachandran', role: 'UX & Accessibility Lead', initials: 'PR', color: '#8b5cf6' },
-  { name: 'David Chen', role: 'Security & Compliance', initials: 'DC', color: '#ef4444' },
-];
-
-const VALUES = [
+const principles = [
   {
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-      </svg>
-    ),
-    title: 'Secure by Design',
-    desc: 'Every interaction on GovNavigator is protected by government-grade encryption and strict data minimisation principles.',
+    icon: ShieldCheck,
+    title: 'Secure by Default',
+    desc: 'ThunderID-backed authentication, server-side role checks on every action, rate limiting, and an audit log for sensitive changes.',
   },
   {
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <circle cx="12" cy="12" r="10" />
-        <line x1="2" y1="12" x2="22" y2="12" />
-        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-      </svg>
-    ),
-    title: 'Inclusive Access',
-    desc: 'Built to WCAG 2.1 AA standards, available in multiple languages, and optimised for low-bandwidth connections.',
+    icon: MapPinned,
+    title: 'Built for the Sri Lankan System',
+    desc: 'The full Grade 1-13 flow - Scholarship years, O/Level, and A/Level streams like Science, Commerce, and Arts - modeled the way local schools actually run.',
   },
   {
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-      </svg>
-    ),
-    title: 'Always Improving',
-    desc: 'Continuous user research and data-driven iteration ensure GovNavigator keeps getting better with every release.',
+    icon: Code,
+    title: 'Open Source & Self-Hosted',
+    desc: 'Apache 2.0 licensed, with the full source available. Run your own instance on your own infrastructure and keep your data under your own control.',
   },
   {
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-        <circle cx="9" cy="7" r="4" />
-        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-      </svg>
-    ),
-    title: 'People First',
-    desc: 'Every design decision starts with the citizen. We obsess over reducing friction and bureaucratic complexity.',
+    icon: TrendingUp,
+    title: 'Built to Scale',
+    desc: 'From a single classroom to a full multi-grade school, the same data model holds up as records grow.',
   },
 ];
 
-export default function About() {
+const audiences = [
+  {icon: Building2, title: 'Principals & Admins', desc: 'Manage the school profile, academic years, grades, and classes from one dashboarded structure.'},
+  {icon: Presentation, title: 'Teachers', desc: 'View assigned classes, mark attendance, and see the students and subjects you’re responsible for.'},
+  {icon: UsersRound, title: 'Guardians', desc: 'Stay linked to your child’s class, attendance, and subject selections as a primary or secondary contact.'},
+  {icon: GraduationCap, title: 'Students', desc: 'Get a clear record of your class, subjects, electives, and attendance history over the academic year.'},
+];
+
+export default function About(): React.ReactElement {
+  const introPhotoSrc = useBaseUrl('img/school/school5.webp');
+
   return (
-    <main id="main-content">
-
-      {/* ── Page Header ── */}
-      <div className="gsn-page-header">
-        <div className="gsn-container">
-          <span className="gsn-eyebrow">About Us</span>
-          <h1 className="gsn-heading" style={{ fontSize: 'clamp(1.75rem, 4vw, 2.75rem)', marginBottom: '1rem' }}>
-            Making government services accessible to everyone
-          </h1>
-          <p className="gsn-lead">
-            GovNavigator is a government-funded digital services platform designed to simplify
-            how citizens discover, understand, and access public services — online, anytime.
-          </p>
-        </div>
-      </div>
-
-      {/* ── Mission ── */}
-      <section className="gsn-section">
-        <div className="gsn-container">
-          <div className="about-mission-grid">
-            <RevealItem>
-              <div className="about-mission-text">
-                <span className="gsn-eyebrow">Our Mission</span>
-                <h2 className="gsn-heading" style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', margin: '0.75rem 0 1rem' }}>
-                  A single front door to every government service
-                </h2>
-                <p style={{ color: 'var(--gsn-text-muted)', lineHeight: '1.75', marginBottom: '1rem' }}>
-                  Navigating government bureaucracy has historically required citizens to know exactly which department
-                  handles their request, visit multiple websites, and repeat the same information over and over.
-                  GovNavigator changes that.
-                </p>
-                <p style={{ color: 'var(--gsn-text-muted)', lineHeight: '1.75', marginBottom: '1.5rem' }}>
-                  We aggregate over 250 government services across 32 departments into a single, searchable portal —
-                  so citizens spend less time navigating bureaucracy and more time on what matters to them.
-                </p>
-                <Link to="/services" className="gsn-btn gsn-btn--primary">
-                  Explore Services
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" aria-hidden="true">
-                    <polyline points="9 18 15 12 9 6" />
-                  </svg>
-                </Link>
-              </div>
-            </RevealItem>
-            <RevealItem delay={0.1}>
-              <div className="about-stats-panel">
-                {[
-                  { value: '250+', label: 'Services available' },
-                  { value: '32', label: 'Government departments' },
-                  { value: '1.2M+', label: 'Citizens served' },
-                  { value: '99.9%', label: 'Uptime SLA' },
-                ].map((stat, i) => (
-                  <div key={i} className="about-stat">
-                    <span className="about-stat-value">{stat.value}</span>
-                    <span className="about-stat-label">{stat.label}</span>
-                  </div>
-                ))}
-              </div>
-            </RevealItem>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Values ── */}
-      <section className="gsn-section gsn-section--alt">
-        <div className="gsn-container">
-          <RevealItem>
-            <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-              <span className="gsn-eyebrow" style={{ justifyContent: 'center' }}>Our Values</span>
-              <h2 className="gsn-heading" style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', marginTop: '0.5rem' }}>
-                Principles that guide everything we build
-              </h2>
-            </div>
-          </RevealItem>
-          <div className="gsn-grid gsn-grid--2">
-            {VALUES.map((val, i) => (
-              <RevealItem key={val.title} delay={i * 0.08}>
-                <div className="gsn-card about-value-card">
-                  <div className="about-value-icon">{val.icon}</div>
-                  <h3 style={{ fontWeight: 700, marginBottom: '0.5rem' }}>{val.title}</h3>
-                  <p style={{ color: 'var(--gsn-text-muted)', lineHeight: '1.7', fontSize: '0.95rem' }}>{val.desc}</p>
-                </div>
-              </RevealItem>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Team ── */}
-      <section className="gsn-section">
-        <div className="gsn-container">
-          <RevealItem>
-            <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-              <span className="gsn-eyebrow" style={{ justifyContent: 'center' }}>The Team</span>
-              <h2 className="gsn-heading" style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', marginTop: '0.5rem' }}>
-                The people behind GovNavigator
-              </h2>
-            </div>
-          </RevealItem>
-          <div className="gsn-grid gsn-grid--4">
-            {TEAM.map((member, i) => (
-              <RevealItem key={member.name} delay={i * 0.08}>
-                <div className="gsn-card about-team-card">
-                  <div className="about-team-avatar" style={{ background: member.color }}>
-                    {member.initials}
-                  </div>
-                  <h3 style={{ fontWeight: 700, fontSize: '1rem', marginBottom: '0.25rem' }}>{member.name}</h3>
-                  <p style={{ color: 'var(--gsn-text-muted)', fontSize: '0.875rem' }}>{member.role}</p>
-                </div>
-              </RevealItem>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── CTA ── */}
-      <section className="gsn-section gsn-section--cta" aria-labelledby="about-cta-heading">
-        <div className="gsn-container">
-          <RevealItem>
-            <div className="cta-box">
-              <span className="gsn-eyebrow" style={{ color: 'rgba(255,255,255,0.65)' }}>Get Started</span>
-              <h2 className="gsn-heading cta-title" id="about-cta-heading">
-                Ready to find your service?
-              </h2>
-              <p className="cta-desc">
-                Search across all departments and get guided step-by-step through any government service.
+    <Layout
+      title="About"
+      description="Why OpenSchool exists: a free, open-source, self-hosted school management system built specifically for the way Sri Lankan schools operate.">
+      <SeoHead
+        path="/about"
+        title="About Us - Open Source School Management"
+        description="Why OpenSchool exists: a free, open-source, self-hosted school management system built specifically for the way Sri Lankan schools operate."
+      />
+      <header className="os-page-header">
+        <div className="os-container">
+          <div className={styles.introGrid}>
+            <div className={styles.introInner}>
+              <h1 className={`os-heading ${styles.title}`}>
+                Replacing paper registers with one secure system
+              </h1>
+              <p className={`os-lead ${styles.lead}`}>
+                OpenSchool is a self-hosted school management system purpose-built for Sri Lankan
+                schools - one secure application that models everything from academic years and
+                grades - Scholarship through A/Level - to guardians and daily attendance, so school
+                records stop living across notebooks, spreadsheets, and disconnected systems.
               </p>
-              <div className="cta-actions">
-                <Link to="/services" className="gsn-btn gsn-btn--white">
-                  Browse Services
-                </Link>
-                <a href="/#contact" className="gsn-btn gsn-btn--outline-white">
-                  Contact Support
-                </a>
-              </div>
             </div>
-          </RevealItem>
+            <div className={styles.introPhotoWrap}>
+              <img
+                src={introPhotoSrc}
+                alt="Students at a morning assembly in a Sri Lankan school"
+                className={styles.introPhoto}
+                loading="eager"
+                decoding="async"
+              />
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section className="os-section os-section--tight">
+        <div className="os-container">
+          <div className="os-grid os-grid--2">
+            <div className={`os-card ${styles.storyCard}`}>
+              <span className="os-eyebrow">Our Mission</span>
+              <h3 className={styles.cardTitle}>Give every school a proper system of record</h3>
+              <p className={styles.cardText}>
+                Most Sri Lankan schools still track students, grades, and attendance across paper
+                registers and disconnected spreadsheets. OpenSchool gives every school - regardless
+                of size - a structured, secure, API-driven system of record for its academic data.
+              </p>
+            </div>
+            <div className={`os-card ${styles.storyCard}`}>
+              <span className="os-eyebrow">Our Vision</span>
+              <h3 className={styles.cardTitle}>Community infrastructure, not a vendor</h3>
+              <p className={styles.cardText}>
+                We&apos;re building OpenSchool in the open, as software any school - or anyone
+                building for schools - can run, inspect, and contribute to, instead of every
+                school reinventing student records from scratch or depending on a closed vendor.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
-    </main>
+
+      <section className="os-section os-section--alt">
+        <div className="os-container">
+          <span className="os-eyebrow">What guides us</span>
+          <h2 className="os-heading" style={{marginBottom: '2.5rem'}}>Principles behind the platform</h2>
+          <div className="os-grid os-grid--4">
+            {principles.map((p) => (
+              <div key={p.title} className={`os-card ${styles.principleCard}`}>
+                <div className={styles.principleIcon}>
+                  <p.icon size={20} strokeWidth={1.75} />
+                </div>
+                <h3 className={styles.principleTitle}>{p.title}</h3>
+                <p className={styles.principleDesc}>{p.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="os-section os-section--tight">
+        <div className="os-container">
+          <span className="os-eyebrow">Who it&apos;s for</span>
+          <h2 className="os-heading" style={{marginBottom: '2.5rem'}}>Built for everyone around a school</h2>
+          <div className="os-grid os-grid--4">
+            {audiences.map((a) => (
+              <div key={a.title} className={`os-card ${styles.audienceCard}`}>
+                <div className={styles.audienceIcon}>
+                  <a.icon size={20} strokeWidth={1.75} />
+                </div>
+                <h3 className={styles.audienceTitle}>{a.title}</h3>
+                <p className={styles.audienceDesc}>{a.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="os-section">
+        <div className="os-container">
+          <div className={`os-panel ${styles.ctaBanner}`}>
+            <div>
+              <h2 className="os-heading" style={{marginBottom: '0.5rem'}}>Want to run it for your school?</h2>
+              <p className={styles.ctaText}>The setup guide walks through every module hands-on.</p>
+            </div>
+            <Link className="os-btn os-btn--primary" to="/docs/setup">
+              Read the Setup Guide
+              <ArrowRight size={17} strokeWidth={2.25} />
+            </Link>
+          </div>
+        </div>
+      </section>
+    </Layout>
   );
 }

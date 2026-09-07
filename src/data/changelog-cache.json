@@ -1,0 +1,109 @@
+[
+  {
+    "slug": "v0.1.0",
+    "version": "v0.1.0",
+    "name": "OpenSchool v0.1.0",
+    "date": "2026-08-11",
+    "tag": "v0.1.0",
+    "prerelease": false,
+    "githubUrl": "https://github.com/openschool-org/openschool/releases/tag/v0.1.0",
+    "summary": "OpenSchool v0.1.0 is the first public release of OpenSchool, an open source, self-hosted school management system built specifically for Sri Lankan schools. OpenSchool provides a modern alternative to paper-based processes and expensive proprietary school management software, while allowing schools to retain full control of their data and infrastructure.",
+    "contributors": [
+      "HasithaErandika",
+      "chamals3n4"
+    ],
+    "sections": [
+      {
+        "heading": "What's Included",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "This release includes the core functionality required for day-to-day school operations:"
+          },
+          {
+            "type": "list",
+            "items": [
+              "Student, teacher, and guardian record management",
+              "Class, subject, and curriculum management",
+              "Attendance tracking with present, absent, late, and excused statuses",
+              "Attendance editing controls with audit logging",
+              "School house management with automatic balancing",
+              "Role-based access for Principals, Vice Principals, Section Heads, Class Teachers, and Subject Teachers",
+              "Academic year promotion with an administrative preview before changes are committed",
+              "Teaching and non-teaching staff management",
+              "Staff attendance and leave tracking",
+              "Student profiles including progress reports, activities, leadership roles, awards, and disciplinary records",
+              "Prefect board management with year-by-year history",
+              "Analytics dashboard for attendance, student and staff statistics, and academic performance",
+              "PDF reports for attendance and marks",
+              "Authentication through ThunderID",
+              "Login using NIC numbers or student index numbers as default credentials"
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Built for Sri Lankan Schools",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "OpenSchool is designed around the structures and workflows commonly found in Sri Lankan schools, including:"
+          },
+          {
+            "type": "list",
+            "items": [
+              "Houses",
+              "Grades and classes",
+              "Sinhala, Tamil, and English mediums",
+              "Academic streams",
+              "Terms",
+              "School leadership and teaching roles"
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "These concepts are part of the platform's core design rather than workarounds added to a generic school management system."
+          }
+        ]
+      },
+      {
+        "heading": "Technology",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "OpenSchool is built as a monorepo using:"
+          },
+          {
+            "type": "list",
+            "items": [
+              "Backend: Go REST API",
+              "Frontend: React with Carbon Design System",
+              "Authentication: ThunderID"
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Out of Scope",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "The following features are not part of this release:"
+          },
+          {
+            "type": "list",
+            "items": [
+              "Full learning management and online classroom functionality",
+              "School fee and finance management",
+              "Public-facing mobile applications"
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "These may be considered for future development."
+          }
+        ]
+      }
+    ]
+  }
+]

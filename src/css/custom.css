@@ -1,0 +1,504 @@
+/**
+ * OpenSchool — plain, flat design system in the spirit of well-known
+ * open-source project sites (Docusaurus, Vite, Astro, Vitest): white canvas,
+ * one accent color, thin 1px borders, no glass/blur/glow, minimal shadow.
+ * Page-specific layout lives in each page's .module.css file.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* ---- Palette ---- */
+  --os-bg: #ffffff;
+  --os-bg-alt: #f6f7f9;
+  --os-card-bg: #ffffff;
+  --os-text: #1c1e21;
+  --os-text-muted: #5a5f6b;
+  --os-border: #e5e7eb;
+  --os-border-soft: #ececee;
+  --os-accent: #0a5bf2;
+  --os-accent-orange: #ff7c00;
+  --os-accent-dark: #0848c0;
+  --os-accent-soft: #eaf2ff;
+  --os-dark-bg: #101113;
+  --os-dark-card-bg: #17181b;
+  --os-dark-border: rgba(255, 255, 255, 0.1);
+  --os-dark-text: #f5f5f5;
+  --os-dark-text-muted: #9ca3af;
+
+  --ifm-color-primary: #0a5bf2;
+  --ifm-color-primary-dark: #0952d9;
+  --ifm-color-primary-darker: #084dc4;
+  --ifm-color-primary-darkest: #073fad;
+  --ifm-color-primary-light: #2b73f4;
+  --ifm-color-primary-lighter: #3c7ef5;
+  --ifm-color-primary-lightest: #6e9ff7;
+  --ifm-background-color: var(--os-bg) !important;
+
+  --ifm-font-family-base: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --os-font-display: 'Inter', system-ui, sans-serif;
+  --ifm-code-font-size: 92%;
+  --ifm-heading-font-family: var(--os-font-display);
+  --ifm-heading-font-weight: 700;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.06);
+
+  /* ---- Radius ---- */
+  --os-radius-btn: 8px;
+  --os-radius-lg: 12px;
+  --os-radius-img: 12px;
+  --os-radius-sm: 8px;
+
+  /* ---- Shadow (kept minimal, used sparingly) ---- */
+  --os-shadow-card: 0 1px 2px rgba(16, 17, 19, 0.04);
+
+  /* ---- Spacing (8pt scale) ---- */
+  --os-s-1: 8px;
+  --os-s-2: 16px;
+  --os-s-3: 24px;
+  --os-s-4: 32px;
+  --os-s-6: 48px;
+  --os-s-8: 64px;
+  --os-s-15: 120px;
+  --os-s-20: 160px;
+}
+
+html,
+body {
+  background: var(--os-bg);
+  color: var(--os-text);
+}
+
+::selection {
+  background: var(--os-accent);
+  color: #fff;
+}
+
+p {
+  color: var(--os-text-muted);
+}
+
+a {
+  color: var(--os-accent);
+}
+
+/* ---------- Surfaces ---------- */
+
+.os-card {
+  background: var(--os-card-bg);
+  border: 1px solid var(--os-border);
+  border-radius: var(--os-radius-lg);
+  padding: var(--os-s-4);
+  transition: border-color 0.2s ease;
+}
+
+.os-card:hover {
+  border-color: var(--os-accent);
+}
+
+.os-panel {
+  background: var(--os-card-bg);
+  border: 1px solid var(--os-border);
+  border-radius: var(--os-radius-lg);
+}
+
+.os-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--os-radius-btn);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  background: var(--os-bg);
+  border: 1px solid var(--os-border);
+  color: var(--os-text-muted);
+}
+
+.os-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--os-accent);
+  flex-shrink: 0;
+}
+
+.os-section {
+  position: relative;
+  padding: clamp(3rem, 6vw, 5rem) 0;
+}
+
+.os-section--tight {
+  padding: clamp(2rem, 4vw, 3rem) 0;
+}
+
+.os-section--alt {
+  background: var(--os-bg-alt);
+  border-top: 1px solid var(--os-border);
+  border-bottom: 1px solid var(--os-border);
+}
+
+.os-eyebrow {
+  font-family: var(--os-font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--os-accent);
+  margin-bottom: var(--os-s-2);
+  display: block;
+}
+
+.os-heading {
+  font-family: var(--os-font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--os-text);
+}
+
+.os-lead {
+  font-size: 1.1rem;
+  line-height: 1.65;
+  color: var(--os-text-muted);
+  max-width: 640px;
+}
+
+/* ---------- Buttons ---------- */
+
+.os-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.4rem;
+  border-radius: var(--os-radius-btn);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none !important;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.os-btn--primary {
+  background: var(--os-text);
+  color: #ffffff !important;
+}
+
+.os-btn--primary:hover {
+  background: #000000;
+}
+
+.os-btn--ghost {
+  background: var(--os-bg);
+  border-color: var(--os-border);
+  color: var(--os-text) !important;
+}
+
+.os-btn--ghost:hover {
+  border-color: var(--os-text);
+}
+
+/* Navbar CTA button */
+.navbar-cta-button.navbar__link,
+.navbar-cta-button {
+  background: var(--os-text) !important;
+  color: #ffffff !important;
+  border-radius: var(--os-radius-btn) !important;
+  padding: 0.5rem 1.1rem !important;
+  font-weight: 600;
+  margin-left: var(--os-s-2);
+  transition: background 0.15s ease;
+}
+
+.navbar-cta-button.navbar__link:hover {
+  background: #000000 !important;
+}
+
+/* ---------- Navbar: plain sticky bar, no floating pill / blur ---------- */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  background: var(--os-bg);
+  border-bottom: 1px solid var(--os-border);
+  box-shadow: none;
+  height: 64px;
+  padding: 0 var(--os-s-2);
+  z-index: 20;
+}
+
+.navbar__inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.navbar__items--right::before {
+  content: '';
+  width: 1px;
+  height: 22px;
+  background: var(--os-border);
+  margin-right: var(--os-s-2);
+  display: inline-block;
+}
+
+/* ---------- Brand mark + two-tone "OpenSchool" wordmark ---------- */
+
+.navbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--os-font-display);
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: -0.01em;
+}
+
+.navbar-brand-mark {
+  display: inline-flex;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+}
+
+.navbar-brand-mark-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.navbar-brand-text-open {
+  color: var(--os-text);
+}
+
+.navbar-brand-text-school {
+  color: var(--os-accent);
+}
+
+@media (min-width: 997px) {
+  .navbar__inner {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+  }
+
+  .navbar__items--brand {
+    justify-self: start;
+  }
+
+  .navbar__items--center {
+    justify-self: center;
+  }
+
+  .navbar__items--right {
+    justify-self: end;
+  }
+}
+
+/* ---------- GitHub icon links (navbar) ---------- */
+
+.navbar-github-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+  margin-right: 0.4rem;
+}
+
+.navbar-icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--os-radius-sm);
+  color: var(--os-text-muted);
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.navbar-icon-link:hover {
+  color: var(--os-text);
+  background: var(--os-bg-alt);
+}
+
+.navbar__link {
+  font-weight: 500;
+  font-size: 0.94rem;
+  color: var(--os-text-muted);
+  position: relative;
+  padding: 0.5rem 0.7rem;
+  border-radius: var(--os-radius-sm);
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.navbar__link:hover {
+  color: var(--os-text);
+  background: var(--os-bg-alt);
+}
+
+.navbar__link--active:not(.navbar-cta-button) {
+  color: var(--os-text);
+  font-weight: 600;
+}
+
+.navbar__toggle {
+  color: var(--os-text);
+  border-radius: var(--os-radius-sm);
+  padding: 0.4rem;
+}
+
+.navbar__toggle:hover {
+  background: var(--os-bg-alt);
+}
+
+/* ---------- Mobile navbar sidebar (hamburger drawer) ---------- */
+
+.navbar-sidebar {
+  background: #ffffff;
+  width: min(320px, 86vw);
+  box-shadow: 0 10px 30px rgba(17, 17, 17, 0.12);
+}
+
+.navbar-sidebar__brand {
+  border-bottom: 1px solid var(--os-border);
+  box-shadow: none;
+  padding: var(--os-s-2) var(--os-s-3);
+}
+
+.navbar-sidebar__close {
+  width: 34px;
+  height: 34px;
+  justify-content: center;
+  border-radius: var(--os-radius-sm);
+}
+
+.navbar-sidebar__close:hover {
+  background: var(--os-bg-alt);
+}
+
+.navbar-sidebar__item.menu {
+  padding: var(--os-s-3) var(--os-s-2);
+}
+
+.navbar-sidebar__item .menu__list-item:not(:first-child) {
+  margin-top: 0.3rem;
+}
+
+.navbar-sidebar__item .menu__link {
+  font-weight: 500;
+  font-size: 0.98rem;
+  color: var(--os-text);
+  border-radius: var(--os-radius-sm);
+  padding: 0.75rem 0.9rem;
+  position: relative;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.navbar-sidebar__item .menu__link:hover {
+  background: var(--os-accent-soft);
+  color: var(--os-accent);
+}
+
+.navbar-sidebar__item .menu__link--active {
+  color: var(--os-accent);
+  font-weight: 700;
+  background: var(--os-accent-soft);
+}
+
+/* Visually separate the GitHub link + CTA actions from the page links */
+.navbar-sidebar__item .menu__list-item:has(.navbar-github-group) {
+  margin-top: var(--os-s-2);
+  padding-top: var(--os-s-2);
+  border-top: 1px solid var(--os-border);
+}
+
+.navbar-sidebar__item .navbar-github-group {
+  padding: 0.4rem 0.9rem;
+}
+
+.navbar-sidebar .navbar-cta-button.navbar__link,
+.navbar-sidebar .navbar-cta-button {
+  display: flex;
+  justify-content: center;
+  margin: 0.3rem 0 0;
+}
+
+/* ---------- Footer (dark, flat — common on OSS project sites) ---------- */
+
+.footer {
+  background: var(--os-dark-bg);
+  border-top: 1px solid var(--os-dark-border);
+  padding: 0;
+}
+
+/* ---------- Grids ---------- */
+
+.os-grid {
+  display: grid;
+  gap: var(--os-s-3);
+}
+
+.os-grid--2 { grid-template-columns: repeat(2, 1fr); }
+.os-grid--3 { grid-template-columns: repeat(3, 1fr); }
+.os-grid--4 { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 996px) {
+  .os-grid--3,
+  .os-grid--4 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .os-grid--2,
+  .os-grid--3,
+  .os-grid--4 { grid-template-columns: 1fr; }
+}
+
+.os-container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ---------- Plain page header (every page opens on this) ---------- */
+
+.os-page-header {
+  padding: clamp(2.5rem, 6vw, 4rem) 0 clamp(2rem, 4vw, 3rem);
+  border-bottom: 1px solid var(--os-border);
+}
+
+.os-page-header--tight {
+  padding-bottom: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .os-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ---------- Reveal-on-scroll (kept subtle, no glow/motion excess) ---------- */
+
+.os-reveal {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.os-reveal--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+body { margin: 0; font-family: var(--os-font-display); }
+* { box-sizing: border-box; }
+
+
+.navbar__items { display: flex; align-items: center; gap: 0.25rem; }
+a { text-decoration: none; }
+.navbar { display: flex; align-items: center; justify-content: center; }
+

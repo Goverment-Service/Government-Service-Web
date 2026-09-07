@@ -1,0 +1,11 @@
+{
+  "name": "OpenSchool — Digital Infrastructure for Sri Lankan Schools",
+  "short_name": "OpenSchool",
+  "icons": [
+    {"src": "/openschool-web/img/favicons/favicon.webp", "sizes": "512x512", "type": "image/webp"}
+  ],
+  "theme_color": "#fafafa",
+  "background_color": "#fafafa",
+  "display": "standalone",
+  "start_url": "/openschool-web/"
+}

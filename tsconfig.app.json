@@ -1,5 +1,5 @@
 {
-  "compilerOptions": {
+  "compilerOptions": { "baseUrl": ".", "paths": { "@site/*": ["./*"], "@docusaurus/*": ["./src/mocks/docusaurus/*"], "@theme/*": ["./src/mocks/theme/*"] },
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "target": "es2023",
     "lib": ["ES2023", "DOM"],
@@ -24,3 +24,4 @@
   },
   "include": ["src"]
 }
+

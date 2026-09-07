@@ -1,0 +1,125 @@
+.introGrid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(2rem, 5vw, 3.5rem);
+  align-items: center;
+}
+
+.introInner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.title {
+  font-size: clamp(2.1rem, 4vw, 3rem);
+  margin: 1.25rem 0 1.25rem;
+}
+
+.lead {
+  text-align: left;
+}
+
+.introPhotoWrap {
+  min-width: 0;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--os-radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--os-border);
+  box-shadow: 0 1px 2px rgba(16, 17, 19, 0.04), 0 16px 40px -20px rgba(16, 17, 19, 0.28);
+}
+
+.introPhoto {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+@media (max-width: 900px) {
+  .introGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .introInner {
+    align-items: center;
+    text-align: center;
+  }
+
+  .lead {
+    text-align: center;
+  }
+}
+
+.storyCard {
+  display: flex;
+  flex-direction: column;
+}
+
+.cardTitle {
+  font-family: var(--os-font-display);
+  font-size: 1.35rem;
+  margin: 0.5rem 0 0.75rem;
+}
+
+.cardText {
+  color: var(--os-text-muted);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.principleCard,
+.audienceCard {
+  display: flex;
+  flex-direction: column;
+}
+
+.principleIcon,
+.audienceIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: #eaf2ff;
+  color: var(--os-accent);
+  margin-bottom: 1rem;
+}
+
+.principleTitle,
+.audienceTitle {
+  font-family: var(--os-font-display);
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+}
+
+.principleDesc,
+.audienceDesc {
+  color: var(--os-text-muted);
+  line-height: 1.6;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.ctaBanner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 3rem;
+  flex-wrap: wrap;
+}
+
+.ctaText {
+  color: var(--os-text-muted);
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .ctaBanner {
+    justify-content: center;
+    text-align: center;
+  }
+}
