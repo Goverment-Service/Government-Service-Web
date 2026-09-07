@@ -37,7 +37,7 @@ const audiences = [
 ];
 
 export default function About(): React.ReactElement {
-  const introPhotoSrc = useBaseUrl('img/school/school5.webp');
+  const introPhotoSrc = useBaseUrl('img/gsn/gsn5.jpg');
 
   return (
     <Layout

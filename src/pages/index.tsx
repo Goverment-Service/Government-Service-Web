@@ -126,9 +126,9 @@ dotnet run --project src/GSN.Api
 cd ../web && npm install && npm run dev`;
 
 export default function Home(): React.ReactElement {
-  const heroPhotoSrc = useBaseUrl('img/school/school1.webp');
-  const aboutPhotoSrc1 = useBaseUrl('img/school/school2.webp');
-  const aboutPhotoSrc2 = useBaseUrl('img/school/school3.webp');
+  const heroPhotoSrc = useBaseUrl('img/gsn/gsn1.jpg');
+  const aboutPhotoSrc1 = useBaseUrl('img/gsn/gsn2.jpg');
+  const aboutPhotoSrc2 = useBaseUrl('img/gsn/gsn3.jpg');
 
   return (
     <Layout

@@ -9,7 +9,7 @@ import features from '@site/src/data/generated/features';
 import styles from './features.module.css';
 
 export default function Features(): React.ReactElement {
-  const introPhotoSrc = useBaseUrl('img/school/school4.webp');
+  const introPhotoSrc = useBaseUrl('img/gsn/gsn4.jpg');
 
   return (
     <Layout
