@@ -5,12 +5,12 @@ import SeoHead from '@site/src/components/SeoHead';
 import styles from './privacy.module.css';
 
 const EFFECTIVE_DATE = 'August 10, 2026';
-const GITHUB_URL = 'https://github.com/openschool-org/openschool';
+const GITHUB_URL = 'https://github.com/Krishmal2004/Government_Service_Navigator';
 
 const sections = [
   {id: 'overview', title: '1. Overview'},
   {id: 'this-website', title: '2. This Website'},
-  {id: 'self-hosted-software', title: '3. The OpenSchool Software'},
+  {id: 'self-hosted-software', title: '3. The Government Service Navigator Software'},
   {id: 'cookies', title: '4. Cookies & Analytics'},
   {id: 'third-party-links', title: '5. Third-Party Links'},
   {id: 'changes', title: '6. Changes to This Policy'},
@@ -21,11 +21,11 @@ export default function Privacy(): React.ReactElement {
   return (
     <Layout
       title="Privacy Policy"
-      description="What this website collects (very little) and how the self-hosted OpenSchool software handles data on each deployment.">
+      description="What this website collects (very little) and how the self-hosted Government Service Navigator software handles data on each deployment.">
       <SeoHead
         path="/privacy"
         title="Privacy Policy"
-        description="What this website collects (very little) and how the self-hosted OpenSchool software handles data on each deployment."
+        description="What this website collects (very little) and how the self-hosted Government Service Navigator software handles data on each deployment."
       />
       <header className="os-page-header">
         <div className="os-container">
@@ -53,9 +53,9 @@ export default function Privacy(): React.ReactElement {
 
             <div className={`os-panel ${styles.article}`}>
               <p className={styles.lead}>
-                OpenSchool is free, open-source software that schools run on their own
+                Government Service Navigator is free, open-source software that government departments run on their own
                 infrastructure. This policy is short because there isn&apos;t much to say: this
-                site (openschool.lk) doesn&apos;t run a hosted service, doesn&apos;t operate on
+                site doesn&apos;t run a hosted service, doesn&apos;t operate on
                 anyone&apos;s behalf, and doesn&apos;t collect personal data from visitors. It
                 covers only what this website itself does.
               </p>
@@ -64,9 +64,9 @@ export default function Privacy(): React.ReactElement {
                 1. Overview
               </h2>
               <p>
-                The OpenSchool project does not host, store, or process any school&apos;s
-                academic data, students&apos; or guardians&apos; information, or anyone&apos;s
-                login credentials. That data lives entirely inside each school&apos;s own,
+                The Government Service Navigator project does not host, store, or process any government
+                department&apos;s data, citizens&apos; information, or anyone&apos;s
+                login credentials. That data lives entirely inside each department&apos;s own,
                 independently deployed instance of the software (its own database, on its own
                 infrastructure), which the project has no access to. This policy therefore has
                 nothing to say about that data - it's governed by whatever policy the operator
@@ -77,7 +77,7 @@ export default function Privacy(): React.ReactElement {
                 2. This Website
               </h2>
               <p>
-                This site is a static, informational page describing the OpenSchool project. It
+                This site is a static, informational page describing the Government Service Navigator project. It
                 has no accounts, no sign-in, and no form that collects your name, email, or any
                 other personal information. Whatever basic, non-invasive web server logs (such as
                 page requests) our hosting provider generates to keep the site running securely
@@ -85,18 +85,18 @@ export default function Privacy(): React.ReactElement {
               </p>
 
               <h2 id="self-hosted-software" className={styles.h2}>
-                3. The OpenSchool Software
+                3. The Government Service Navigator Software
               </h2>
               <p>
-                OpenSchool (the application) is self-hosted: anyone can deploy it, and whoever
+                Government Service Navigator (the application) is self-hosted: anyone can deploy it, and whoever
                 does becomes the sole operator and controller of the data entered into that
-                instance - academic years, grades, classes, student and guardian records,
-                attendance, and everything else described on the{' '}
+                instance - service catalogs, applications, citizen profiles, officer verifications,
+                payments, and everything else described on the{' '}
                 <Link to="/features">Features</Link> page. The project itself is not a party to that
                 relationship, does not have access to any deployed instance&apos;s database, and
-                does not act as a data processor for any school. If you&apos;re a student,
-                guardian, teacher, or staff member with a question about how your school&apos;s
-                specific instance handles your data, that question belongs with your school, not
+                does not act as a data processor for any department. If you&apos;re a citizen
+                or a government officer with a question about how your department&apos;s
+                specific instance handles your data, that question belongs with your department, not
                 with this project.
               </p>
 
