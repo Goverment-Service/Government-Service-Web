@@ -89,7 +89,7 @@ export default function Community(): React.ReactElement {
                       {c.linkLabel} →
                     </a>
                   ) : (
-                    <Link className={styles.channelLink} to={c.linkTo}>
+                    <Link className={styles.channelLink} to={c.linkTo || '#'}>
                       {c.linkLabel} →
                     </Link>
                   )}

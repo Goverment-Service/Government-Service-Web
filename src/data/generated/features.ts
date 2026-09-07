@@ -25,7 +25,8 @@ export type FeatureIcon =
   | 'Search'
   | 'CheckSquare'
   | 'CreditCard'
-  | 'ClipboardList';
+  | 'ClipboardList'
+  | 'ShieldCheck';
 
 export type FeatureGroup = 'agent1' | 'agent2' | 'agent3' | 'agent4';
 

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+export type Props = any;
+
 export default function NavbarItem({ to, href, label, className, html }: any) {
   if (html) {
     if (href) {

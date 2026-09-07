@@ -255,7 +255,7 @@ export default function Home(): React.ReactElement {
                 <div key={s.slug} className={`os-card ${styles.serviceCard}`}>
                   <span className={styles.serviceNumber}>{String(i + 1).padStart(2, '0')}</span>
                   <div className={styles.serviceIcon}>
-                    <DynamicIcon name={s.icon} size={20} strokeWidth={1.75} />
+                    <DynamicIcon name={s.icon as any} size={20} strokeWidth={1.75} />
                   </div>
                   <h3 className={styles.serviceTitle}>{s.title}</h3>
                   <p className={styles.serviceDesc}>{s.summary}</p>
@@ -339,7 +339,7 @@ export default function Home(): React.ReactElement {
                       {c.linkLabel} <ArrowRight size={14} strokeWidth={2.25} />
                     </a>
                   ) : (
-                    <Link className={styles.communityCardLink} to={c.linkTo}>
+                    <Link className={styles.communityCardLink} to={c.linkTo || '#'}>
                       {c.linkLabel} <ArrowRight size={14} strokeWidth={2.25} />
                     </Link>
                   )}

@@ -38,7 +38,7 @@ function NavbarItems({items}: {items: NavbarItemConfig[]}): ReactNode {
       {items.map((item, i) => (
         <ErrorCauseBoundary
           key={i}
-          onError={(error) =>
+          onError={(error: any) =>
             new Error(
               `A theme navbar item failed to render.
 Please double-check the following navbar item (themeConfig.navbar.items) of your Docusaurus config:
@@ -92,7 +92,7 @@ export default function NavbarContent(): ReactNode {
     <NavbarContentLayout
       brand={
         <>
-          {!mobileSidebar.disabled && <NavbarMobileSidebarToggle />}
+          {mobileSidebar.shouldRender && <NavbarMobileSidebarToggle />}
           <NavbarBrand />
         </>
       }
@@ -102,7 +102,7 @@ export default function NavbarContent(): ReactNode {
         // Ask the user to add the respective navbar items => more flexible
         <>
           <NavbarItems items={rightItems} />
-          <NavbarColorModeToggle className={styles.colorModeToggle} />
+          <NavbarColorModeToggle />
           {!searchBarItem && (
             <NavbarSearch>
               <SearchBar />

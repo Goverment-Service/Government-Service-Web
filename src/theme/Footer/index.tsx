@@ -31,20 +31,27 @@ function Footer(): ReactNode {
             </p>
           </div>
 
-          {columns.map((col) => (
+          {columns.map((col: any) => (
             <div key={col.title} className={styles.column}>
               <div className={styles.columnTitle}>{col.title}</div>
               <ul className={styles.columnList}>
-                {col.items.map((item) => (
+                {col.items.map((item: any) => (
                   <li key={item.label}>
-                    <Link
-                      to={item.to}
-                      href={item.href}
-                      className={styles.columnLink}
-                      target={item.href ? '_blank' : undefined}
-                      rel={item.href ? 'noopener noreferrer' : undefined}>
-                      {item.label}
-                    </Link>
+                    {item.href ? (
+                      <a
+                        href={item.href}
+                        className={styles.columnLink}
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        {item.label}
+                      </a>
+                    ) : (
+                      <Link
+                        to={item.to || '#'}
+                        className={styles.columnLink}>
+                        {item.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>

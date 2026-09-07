@@ -61,3 +61,13 @@ export const ThemeClassNames = {
   wrapper: { navbar: '' },
   layout: { navbar: { containerLeft: '', containerRight: '' } }
 };
+
+export type MultiColumnFooter = {
+  style: string;
+  logo: { src: string };
+  copyright: string;
+  links: Array<{
+    title: string;
+    items: Array<{ label: string; to?: string; href?: string }>;
+  }>;
+};
