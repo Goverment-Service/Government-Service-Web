@@ -2,7 +2,7 @@ import React from 'react';
 import Link from '@docusaurus/Link';
 import Layout from '@theme/Layout';
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import {ShieldCheck, MapPinned, Code, TrendingUp, Building2, Presentation, UsersRound, GraduationCap, ArrowRight} from 'lucide-react';
+import {ShieldCheck, MapPinned, Code, TrendingUp, Building2, Presentation, UsersRound, ArrowRight} from 'lucide-react';
 import SeoHead from '@site/src/components/SeoHead';
 import styles from './about.module.css';
 
@@ -10,7 +10,7 @@ const principles = [
   {
     icon: ShieldCheck,
     title: 'Secure by Default',
-    desc: 'Role-based access control, rate limiting, and comprehensive audit logs for all sensitive system and application changes.',
+    desc: 'JWT authentication with token revocation on logout, role-restricted finance endpoints, and an audit trail for officer decisions.',
   },
   {
     icon: MapPinned,
@@ -19,21 +19,21 @@ const principles = [
   },
   {
     icon: Code,
-    title: 'Open Source & Self-Hosted',
-    desc: 'Apache 2.0 licensed, with the full source available. Run your own instance and keep public sector data completely under your control.',
+    title: 'Built in the Open',
+    desc: 'The full source, architecture decision records, and CI pipelines live on GitHub. Run your own instance against your own PostgreSQL database.',
   },
   {
     icon: TrendingUp,
     title: 'Multi-Platform Delivery',
-    desc: 'An ASP.NET Core backend serving a Flutter mobile app for citizens and a React web dashboard for officers and administrators.',
+    desc: 'One ASP.NET Core API serving a Flutter app for citizens and a React dashboard - also shipped as Windows, macOS, and Linux desktop builds - for staff.',
   },
 ];
 
 const audiences = [
   {icon: UsersRound, title: 'Citizen / Applicant', desc: 'Primary Client. Search services, get guidance, submit applications, upload documents, pay fees, and track status.'},
   {icon: Presentation, title: 'Verifying Officer', desc: 'Review submitted applications, verify documents, and approve, reject, or revise AI agent drafts.'},
-  {icon: Building2, title: 'Department Admin', desc: 'Manage the service catalog, fees, eligibility rules, appointment capacity, and analytics.'},
-  {icon: ShieldCheck, title: 'System Admin', desc: 'Manage users, roles, audit logs, anomaly review, and global system configuration.'},
+  {icon: Building2, title: 'Department Admin', desc: 'Manage the service catalog, fees, eligibility rules, workflows, installment plans, and analytics.'},
+  {icon: ShieldCheck, title: 'System Admin', desc: 'Manage officer accounts, audit logs, anomaly review, and system settings. Finance staff get their own ledger and refunds workspace.'},
 ];
 
 export default function About(): React.ReactElement {
@@ -63,7 +63,7 @@ export default function About(): React.ReactElement {
             <div className={styles.introPhotoWrap}>
               <img
                 src={introPhotoSrc}
-                alt="Students at a morning assembly in a Sri Lankan school"
+                alt="An officer reviewing applications on a web dashboard"
                 className={styles.introPhoto}
                 loading="eager"
                 decoding="async"

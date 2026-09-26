@@ -26,13 +26,13 @@ export default function Features(): React.ReactElement {
             <div className={styles.introInner}>
               <h1 className={`os-heading ${styles.title}`}>Capabilities & Operations</h1>
               <p className={`os-lead ${styles.lead}`}>
-                The core capabilities spanning Catalog Management, Application Intake, Validation, and Financial Analytics — exposed through robust REST APIs and powered by Agentic AI.
+                The four components of the platform, each paired with one agent in the AI pipeline, with the REST endpoints that back them.
               </p>
             </div>
             <div className={styles.introPhotoWrap}>
               <img
                 src={introPhotoSrc}
-                alt="A teacher and students in a classroom in Sri Lanka"
+                alt="Officials reviewing a city services dashboard with residents"
                 className={styles.introPhoto}
                 loading="eager"
                 decoding="async"

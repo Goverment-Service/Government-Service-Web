@@ -17,7 +17,7 @@ import SeoHead from '@site/src/components/SeoHead';
 import changelog, {type ChangelogRelease} from '@site/src/data/generated/changelog';
 import styles from './changelog.module.css';
 
-const GITHUB_URL = 'https://github.com/openschool-org/openschool';
+import {GITHUB_URL} from '@site/src/data/site';
 
 function sourceArchiveUrl(release: ChangelogRelease, ext: 'zip' | 'tar.gz'): string {
   return `${GITHUB_URL}/archive/refs/tags/${release.tag}.${ext}`;
@@ -52,11 +52,11 @@ export default function Changelog(): React.ReactElement {
   return (
     <Layout
       title="Changelog"
-      description="Every OpenSchool release, with what changed and where to get the source.">
+      description="Every Government Service Navigator release, with what changed and where to get the source.">
       <SeoHead
         path="/changelog"
         title="Changelog - Releases & Version History"
-        description="Every OpenSchool release, with what changed and where to get the source."
+        description="Every Government Service Navigator release, with what changed and where to get the source."
       />
       <header className="os-page-header">
         <div className="os-container">
@@ -64,7 +64,7 @@ export default function Changelog(): React.ReactElement {
             <span className="os-eyebrow">Releases</span>
             <h1 className={`os-heading ${styles.title}`}>Changelog</h1>
             <p className={`os-lead ${styles.lead}`}>
-              Every OpenSchool release, with what shipped and a link back to the source on GitHub.
+              Every Government Service Navigator release, with what shipped and a link back to the source on GitHub.
             </p>
             {latest ? (
               <div className={styles.introMeta}>
@@ -166,7 +166,7 @@ export default function Changelog(): React.ReactElement {
                     </a>
                   </div>
                   <p className={styles.assetHint}>
-                    OpenSchool is self-hosted - clone the{' '}
+                    Government Service Navigator is self-hosted - clone the{' '}
                     <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">repository</a>{' '}
                     and follow the <a href="/docs/setup">Setup Guide</a> to run this release.
                   </p>

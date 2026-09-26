@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from '@docusaurus/Head';
 
-const SITE_URL = 'https://openschool.lk';
+const SITE_NAME = 'Government Service Navigator';
 
 type Props = {
   path: string;
@@ -11,12 +11,14 @@ type Props = {
 };
 
 export default function SeoHead({path, title, description, image}: Props): React.ReactElement {
-  const url = path === '/' ? SITE_URL : `${SITE_URL}${path}`;
-  const metaTitle = title ? `${title} | OpenSchool` : 'OpenSchool - Open Source School Management for Sri Lankan Schools';
+  // No fixed production domain yet, so canonical URLs follow wherever the site is served.
+  const siteUrl = typeof window === 'undefined' ? '' : window.location.origin;
+  const url = path === '/' ? siteUrl : `${siteUrl}${path}`;
+  const metaTitle = title ? `${title} | ${SITE_NAME}` : `${SITE_NAME} - Digital Government Services`;
   const metaDescription =
     description ||
-    'OpenSchool is a free, open-source, self-hosted school management system built for Sri Lankan schools - covering academic years, students, guardians, attendance, timetables, and more.';
-  const metaImage = image ? `${SITE_URL}${image}` : `${SITE_URL}/img/brand/og-cover.png`;
+    'Government Service Navigator is a multi-platform system for delivering and managing digital government services - an ASP.NET Core API, a React officer dashboard, a Flutter citizen app, and a four-agent AI pipeline.';
+  const metaImage = `${siteUrl}${image ?? '/logo.png'}`;
 
   return (
     <Head>
@@ -33,4 +35,3 @@ export default function SeoHead({path, title, description, image}: Props): React
     </Head>
   );
 }
-

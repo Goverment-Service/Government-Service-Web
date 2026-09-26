@@ -2,10 +2,10 @@ import React from 'react';
 import Link from '@docusaurus/Link';
 import Layout from '@theme/Layout';
 import SeoHead from '@site/src/components/SeoHead';
+import {GITHUB_URL} from '@site/src/data/site';
 import styles from './privacy.module.css';
 
 const EFFECTIVE_DATE = 'August 10, 2026';
-const GITHUB_URL = 'https://github.com/Krishmal2004/Government_Service_Navigator';
 
 const sections = [
   {id: 'overview', title: '1. Overview'},
@@ -113,8 +113,7 @@ export default function Privacy(): React.ReactElement {
                 5. Third-Party Links
               </h2>
               <p>
-                This site links out to GitHub (source code, issues, discussions, and security
-                advisories). Those pages are operated by GitHub, Inc. and governed by{' '}
+                This site links out to GitHub (source code, issues, and pull requests). Those pages are operated by GitHub, Inc. and governed by{' '}
                 <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement" target="_blank" rel="noopener noreferrer">
                   GitHub&apos;s own privacy statement
                 </a>
@@ -135,8 +134,8 @@ export default function Privacy(): React.ReactElement {
               <p>
                 This is an open-source project without a support inbox. Questions about this site
                 are best raised as a{' '}
-                <a href={`${GITHUB_URL}/discussions`} target="_blank" rel="noopener noreferrer">
-                  GitHub Discussion
+                <a href={`${GITHUB_URL}/issues`} target="_blank" rel="noopener noreferrer">
+                  GitHub issue
                 </a>
                 , or see the <Link to="/community">Community</Link> page for other ways to reach
                 the maintainers.

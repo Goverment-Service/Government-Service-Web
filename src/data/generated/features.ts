@@ -1,31 +1,11 @@
+// GENERATED FILE — do not edit directly.
+// Source of truth: src/data/features/*.md
+// Regenerate with `npm run generate:content`.
+
 export type FeatureIcon =
-  | 'Building2'
-  | 'KeyRound'
-  | 'IdCard'
-  | 'History'
-  | 'Calendar'
-  | 'GraduationCap'
-  | 'Waves'
-  | 'Languages'
-  | 'BookOpen'
-  | 'UserRound'
-  | 'UserCog'
-  | 'UsersRound'
-  | 'Briefcase'
-  | 'House'
-  | 'Trophy'
-  | 'Flag'
-  | 'CalendarCheck'
-  | 'FileText'
-  | 'Shuffle'
-  | 'CalendarClock'
-  | 'Bell'
-  | 'BarChart3'
-  | 'Bot'
-  | 'Search'
-  | 'CheckSquare'
-  | 'CreditCard'
   | 'ClipboardList'
+  | 'CreditCard'
+  | 'FileText'
   | 'ShieldCheck';
 
 export type FeatureGroup = 'agent1' | 'agent2' | 'agent3' | 'agent4';
@@ -43,67 +23,71 @@ export type Feature = {
 
 const features: Feature[] = [
   {
-    slug: "catalog-eligibility",
-    title: "Catalog & Eligibility Guidance",
-    icon: "ClipboardList",
-    order: 1,
-    group: "agent1",
-    homeFeatured: true,
-    summary: "Service catalog management and citizen eligibility scoring.",
-    items: [
-      "POST /api/services: Admin adds a new government service/procedure",
-      "GET /api/services/{id}: Fetch procedure details + document checklist",
-      "PUT /api/services/{id}/eligibility-rules: Update eligibility criteria for a service",
-      "DELETE /api/services/{id}: Retire/deactivate a procedure",
-      "POST /api/services/eligibility-score: Scores a citizen's profile against a service's rules, returns match % + missing criteria"
+    "slug": "catalog-eligibility",
+    "title": "Service Catalog & Intake",
+    "icon": "ClipboardList",
+    "order": 1,
+    "group": "agent1",
+    "homeFeatured": true,
+    "summary": "The service catalog, eligibility rules, and the Intake & Planning agent that matches a citizen's need to a service.",
+    "items": [
+      "POST /api/IntakeAgent/ask: Agent 1 turns a free-text need into a matched service and step plan (pgvector retrieval)",
+      "POST /api/services and PUT /api/services/{id}: Department Admin creates and edits a service procedure",
+      "PUT /api/services/{id}/eligibility-rules, /documents, /fees: Manage the rules, document checklist, and fee schedule",
+      "PUT /api/services/{id}/workflow: Define the multi-stage workflow a service moves through",
+      "POST /api/services/eligibility-score: Score a citizen profile against a service's rules — match % plus missing criteria",
+      "DELETE /api/services/{id}: Retire a procedure (soft delete)"
     ]
   },
   {
-    slug: "payments-orchestration",
-    title: "Payments, Refunds & Analytics (+ Orchestrator)",
-    icon: "CreditCard",
-    order: 2,
-    group: "agent2",
-    homeFeatured: true,
-    summary: "Financial transactions, analytics, and workflow orchestration.",
-    items: [
-      "POST /api/payments/{id}/refund-request: Citizen requests a refund on a rejected/withdrawn application — creates an auditable refund case",
-      "GET /api/payments/{id}/ledger: Full transaction ledger for a payment: fee breakdown, partial payments, refund history",
-      "PUT /api/payments/{id}/installment-plan: Converts a fee into a multi-installment schedule and recalculates due dates/amounts",
-      "DELETE /api/report-snapshots/{id}: Remove an outdated saved analytics report",
-      "POST /api/analytics/anomaly-detection: Scans payment/usage patterns for anomalies and flags cases for officer review"
+    "slug": "payments-orchestration",
+    "title": "Eligibility, Payments & Analytics",
+    "icon": "CreditCard",
+    "order": 2,
+    "group": "agent2",
+    "homeFeatured": true,
+    "summary": "Agent 2's eligibility and document analysis, plus payments, refunds, installments, and financial analytics.",
+    "items": [
+      "POST /api/EligibilityAgent/evaluate and /orchestrate: Agent 2 checks eligibility and missing documents, then runs the pipeline",
+      "POST /api/payments/checkout: Stripe Checkout for online fees, alongside bank deposit-slip and online-reference payments",
+      "GET /api/payments/{id}/ledger: Full ledger for a payment — fee breakdown, partial payments, refund history",
+      "PUT /api/payments/{id}/installment-plan: Split a fee into installments, monitored by a background service",
+      "POST /api/refunds: Citizen refund request, then approve → process → complete by finance staff",
+      "GET /api/analytics/{daily|weekly|monthly|yearly} and POST /api/analytics/anomaly-detection: Reports and anomaly flags for review"
     ]
   },
   {
-    slug: "application-case-management",
-    title: "Application & Case Management",
-    icon: "FileText",
-    order: 3,
-    group: "agent3",
-    homeFeatured: true,
-    summary: "Application submission, document handling, and slot reservation.",
-    items: [
-      "POST /api/applications: Citizen submits a new application",
-      "GET /api/applications/{id}/status-history: Timeline of status changes for tracking",
-      "PUT /api/applications/{id}/documents: Upload/replace a document on an existing application",
-      "DELETE /api/applications/{id}: Withdraw a draft/unsubmitted application",
-      "POST /api/applications/{id}/reserve-slot: Reserves an appointment slot with concurrency-safe locking"
+    "slug": "application-case-management",
+    "title": "Application & Case Management",
+    "icon": "FileText",
+    "order": 3,
+    "group": "agent3",
+    "homeFeatured": true,
+    "summary": "Dynamic application forms, staged submissions with document uploads, and Agent 3's pre-filled drafts.",
+    "items": [
+      "POST /api/ActionAgent/draft and /orchestrate: Agent 3 calculates the fee, proposes an appointment slot, and pre-fills the form",
+      "POST /api/templates/create: Officers build dynamic application templates, optionally linked to a catalog service",
+      "GET /api/applications/form/{serviceId} and /stages/{serviceId}: Load the form and stage list for a service",
+      "POST /api/applications/documents: Upload supporting documents for a submission",
+      "POST /api/applications/submit-stage: Submit one workflow stage; Agent 4 validates it on the way in",
+      "POST /api/applications/{id}/finalize: Finalize a completed multi-stage application"
     ]
   },
   {
-    slug: "verification-compliance",
-    title: "Verification & Compliance",
-    icon: "ShieldCheck",
-    order: 4,
-    group: "agent4",
-    homeFeatured: true,
-    summary: "Officer verification tasks, audit trails, and bulk processing.",
-    items: [
-      "POST /api/verification-tasks: System/agent creates a task for officer review",
-      "GET /api/audit-logs?applicationId=: Retrieve full audit trail for a case",
-      "PUT /api/verification-tasks/{id}/decision: Officer records approve/reject/revise + reason code",
-      "DELETE /api/verification-tasks/{id}: Remove a duplicate/erroneous task",
-      "POST /api/verification-tasks/bulk-verify: Officer approves/rejects multiple queued tasks in one call"
+    "slug": "verification-compliance",
+    "title": "Verification & Compliance",
+    "icon": "ShieldCheck",
+    "order": 4,
+    "group": "agent4",
+    "homeFeatured": true,
+    "summary": "Agent 4's validation and duplicate screening, then the human officer review queue and its audit trail.",
+    "items": [
+      "Agent 4 validates the draft schema, enforces a minimum legal age, and blocks duplicate submissions",
+      "GET /api/verification/tasks/pending: The officer's department-scoped review queue",
+      "GET and POST /api/verification/tasks/{id}/agent-draft: Review and revise the agent-prepared draft",
+      "PUT /api/verification/tasks/{id}/decision: Approve, reject, or request revision with a rejection code",
+      "POST /api/verification/tasks/bulk-verify: Decide several queued tasks in one call",
+      "GET /api/audit-logs: Searchable audit trail by performer, action, or recency"
     ]
   }
 ];

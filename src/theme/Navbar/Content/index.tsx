@@ -17,7 +17,7 @@ function NavbarBrand(): ReactNode {
   return (
     <Link to="/" className={clsx('navbar__brand', 'navbar-brand')}>
       <span className="navbar-brand-mark">
-        <img src={mark} className="navbar-brand-mark-img" alt="OpenSchool" width={44} height={44} decoding="async" fetchPriority="high" />
+        <img src={mark} className="navbar-brand-mark-img" alt="Government Service Navigator" width={44} height={44} decoding="async" fetchPriority="high" />
       </span>
       <span className="navbar-brand-text">
         <span className="navbar-brand-text-open">Gov</span>

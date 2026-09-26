@@ -71,3 +71,37 @@ Each citizen request flows through all four agents in sequence, forming a single
 - **Output:** A validated, clean application ready for officer review, or a structured rejection with specific reasons
 - **Allow-listed tools:** `validate_schema`, `check_duplicate_application`
 - **Description:** Performs a final sanity check — validating the data format and screening for duplicate submissions — before the case ever reaches a human Verifying Officer.
+
+---
+
+## 3. How It Runs Today
+
+The agents aren't a separate service. `agentic-ai/AgenticAi.csproj` is a class library that the backend references directly, and every agent, tool, and orchestrator is registered in `backend/src/Program.cs`'s dependency-injection container.
+
+| Stage | Entry point | Called from |
+|---|---|---|
+| Agent 1 — Intake & Planning | `POST /api/IntakeAgent/ask` | Mobile "Describe your need" screen → intake plan result |
+| Agent 2 — Eligibility & Documents | `POST /api/EligibilityAgent/evaluate`, `POST /api/EligibilityAgent/orchestrate` | Mobile eligibility self-check |
+| Agent 3 — Action / Tool | `POST /api/ActionAgent/draft`, `POST /api/ActionAgent/orchestrate` | Draft saved as an `AgentDraft`, shown in the officer's Agent Draft panel |
+| Agent 4 — Validation & Safety | Runs inside `POST /api/applications/submit-stage` | Every stage a citizen submits |
+| Human review | `/api/verification/tasks/*` | Officer verification workspace on the web dashboard |
+
+### Retrieval
+
+Agents 1–3 retrieve context from a `KnowledgeChunks` table in a separate PostgreSQL database with the pgvector extension (`VectorDbContext`). Embeddings are computed offline by `LocalEmbeddingService`, which hashes keyword unigrams and bigrams into a 768-dimension vector, so no external model or API key is needed. The knowledge base is seeded from `backend/src/Data/KnowledgeDocuments/` with `POST /api/RagSetup/seed` and `POST /api/RagSetup/seed-action-agent`. Admins can also upload policy documents per service.
+
+### Safety configuration
+
+Agent 4 is configured in `Program.cs` through `ValidationSafetyConfig`:
+
+- `BlockDuplicateSubmissions = true`
+- `MinimumLegalAge = 16`
+- `EnableAdversarialDefense = true`
+
+### Human in the loop
+
+No agent can approve anything. Agent output becomes a verification task in the submitting department's queue, and a Verifying Officer approves it, rejects it with a rejection code, or requests a revision. Each decision is written to the audit log.
+
+### Known gaps
+
+The ADRs record these openly. Most notably, department scoping for the catalog and templates is enforced in the web client rather than the API ([ADR-0004](/docs/adr/0004)), and several controllers — including Services, Templates, Admin, and the agent endpoints — don't require authentication yet.

@@ -1,68 +1,34 @@
 import React from 'react';
 import {
-  Calendar,
-  Building2,
-  GraduationCap,
-  UserRound,
-  UsersRound,
-  BookOpen,
-  CalendarCheck,
-  UserCog,
-  Waves,
-  KeyRound,
-  IdCard,
-  History,
-  Languages,
-  Briefcase,
-  House,
-  Trophy,
-  FileText,
-  Shuffle,
-  CalendarClock,
-  Bell,
-  BarChart3,
-  Flag,
   Bot,
+  Briefcase,
+  Building2,
   ClipboardList,
   CreditCard,
+  FileText,
   ShieldCheck,
+  UserRound,
   type LucideProps,
 } from 'lucide-react';
 import type {FeatureIcon} from '@site/src/data/generated/features';
 
-const registry: Record<FeatureIcon, React.ComponentType<LucideProps>> = {
-  Calendar,
-  Building2,
-  GraduationCap,
-  UserRound,
-  UsersRound,
-  BookOpen,
-  CalendarCheck,
-  UserCog,
-  Waves,
-  KeyRound,
-  IdCard,
-  History,
-  Languages,
-  Briefcase,
-  House,
-  Trophy,
-  FileText,
-  Shuffle,
-  CalendarClock,
-  Bell,
-  BarChart3,
-  Flag,
+// Feature icons come from src/data/features/*.md; the rest are used by the
+// home page's platform cards.
+const registry: Record<FeatureIcon | 'Bot' | 'Briefcase' | 'Building2' | 'UserRound', React.ComponentType<LucideProps>> = {
   Bot,
+  Briefcase,
+  Building2,
   ClipboardList,
   CreditCard,
+  FileText,
   ShieldCheck,
-  Search: Calendar, // Fallbacks for any unused TS types to make compiler happy
-  CheckSquare: Calendar,
+  UserRound,
 };
 
+export type IconName = keyof typeof registry;
+
 type Props = LucideProps & {
-  name: FeatureIcon;
+  name: IconName;
 };
 
 export default function DynamicIcon({name, ...rest}: Props): React.ReactElement {

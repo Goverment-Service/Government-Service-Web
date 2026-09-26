@@ -1,31 +1,15 @@
----
-id: index
-title: Architecture Decision Records
-sidebar_label: Overview
-description: Significant design decisions, their context, and their known tradeoffs.
----
+# Architecture Decision Records
 
-An ADR captures a significant design decision, the context that drove it,
-and its known tradeoffs — so it doesn't get silently relitigated or
-"fixed" by someone who wasn't there for the original reasoning. These are
-short and status-tracked, not a design essay; see
-[Architecture](../architecture) for how the pieces they describe fit into
-the system as a whole, and the [Features](/features) page for current
-behavior.
+Each ADR documents one real decision made in this codebase — the context that forced it, the options actually considered, what was chosen, and the honest trade-offs accepted (including known gaps, not just upsides). They describe the system as built, not the aspirational design in `docs/Government_Service_Navigator_Project_Plan.md`.
 
-## Index
+| # | Decision |
+|---|---|
+| [0001](0001-jwt-auth-with-revocation-table.md) | Stateless JWT auth with a database revocation table for logout |
+| [0002](0002-single-project-folder-layering.md) | Single ASP.NET Core project with folder-based layering |
+| [0003](0003-separate-user-officer-admin-tables.md) | Separate `User` / `Officer` / `Admin` tables instead of one polymorphic identity table |
+| [0004](0004-client-side-department-scoping.md) | Department scoping is enforced client-side, not server-side ⚠️ known security gap |
+| [0005](0005-auto-apply-migrations-on-startup.md) | EF Core migrations are applied automatically on API startup |
+| [0006](0006-optional-template-service-link.md) | Application Templates link to a Service Catalog entry via an optional FK |
+| [0007](0007-carbon-and-tailwind-together.md) | Carbon Design System components + Tailwind CSS utilities, together |
 
-| # | Title | Status |
-| --- | --- | --- |
-| [0001](./0001-thunderid-as-sole-identity-provider) | ThunderID as the sole identity provider | Accepted |
-| [0002](./0002-in-app-position-layer) | In-app position/hierarchy layer instead of new IDP roles | Accepted |
-| [0003](./0003-single-current-academic-year) | Single school, single current academic year per deployment | Accepted |
-| [0004](./0004-in-app-only-notifications) | In-app-only notifications (no email/SMS channel) | Accepted |
-| [0005](./0005-hand-rolled-password-reset) | Hand-rolled password lifecycle (no IDP primitive) | Accepted, known weakness |
-
-## Adding a new ADR
-
-Copy the format of an existing one: **Status**, **Context**, **Decision**,
-**Consequences**. Number sequentially, never renumber or delete a
-superseded record — mark its status `Superseded by NNNN` instead and add
-the new one.
+New ADRs should follow the same template (Context / Options Considered / Decision / Consequences) and be numbered sequentially.

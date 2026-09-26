@@ -1,11 +1,11 @@
 {
-  "name": "OpenSchool — Digital Infrastructure for Sri Lankan Schools",
-  "short_name": "OpenSchool",
+  "name": "Government Service Navigator",
+  "short_name": "GSN",
   "icons": [
-    {"src": "/openschool-web/img/favicons/favicon.webp", "sizes": "512x512", "type": "image/webp"}
+    {"src": "/img/favicons/favicon.webp", "sizes": "512x512", "type": "image/webp"}
   ],
-  "theme_color": "#fafafa",
+  "theme_color": "#1a56db",
   "background_color": "#fafafa",
   "display": "standalone",
-  "start_url": "/openschool-web/"
+  "start_url": "/"
 }

@@ -5,13 +5,10 @@ import CodeBlock from '@theme/CodeBlock';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import {ArrowRight, Terminal, GitBranch, Bug, MessageCircle} from 'lucide-react';
 import Reveal from '@site/src/components/Reveal';
-import DynamicIcon from '@site/src/components/DynamicIcon';
+import DynamicIcon, {type IconName} from '@site/src/components/DynamicIcon';
 import SeoHead from '@site/src/components/SeoHead';
-import TechLogos from '@site/src/components/TechLogos';
-import features from '@site/src/data/generated/features';
+import {GITHUB_URL} from '@site/src/data/site';
 import styles from './index.module.css';
-
-const GITHUB_URL = 'https://github.com/Krishmal2004/Government_Service_Navigator';
 
 function GithubIcon(): React.ReactElement {
   return (
@@ -25,57 +22,46 @@ function GithubIcon(): React.ReactElement {
 }
 
 const stats = [
-  {value: '4', label: 'Role-Based Portals'},
+  {value: '4', label: 'Pipeline Agents'},
+  {value: '3', label: 'Client Apps'},
   {value: 'LK', label: 'Built for Sri Lanka'},
 ];
 
 const badges = [
-  {
-    label: 'Backend CI',
-    href: `${GITHUB_URL}/actions/workflows/backend-ci.yml`,
-    src: `${GITHUB_URL}/actions/workflows/backend-ci.yml/badge.svg`,
-  },
-  {
-    label: 'Frontend CI',
-    href: `${GITHUB_URL}/actions/workflows/frontend-ci.yml`,
-    src: `${GITHUB_URL}/actions/workflows/frontend-ci.yml/badge.svg`,
-  },
-  {
-    label: 'Apache 2.0 License',
-    href: `${GITHUB_URL}/blob/main/LICENSE`,
-    src: 'https://img.shields.io/badge/license-Apache%202.0-blue.svg',
-  },
-  {
-    label: 'Contributor Covenant 2.1',
-    href: `${GITHUB_URL}/blob/main/CODE_OF_CONDUCT.md`,
-    src: 'https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg',
-  },
-];
+  {label: 'Backend CI', workflow: 'backend-ci.yml'},
+  {label: 'Web CI', workflow: 'web-ci.yml'},
+  {label: 'Mobile CI', workflow: 'mobile-ci.yml'},
+  {label: 'Agentic AI CI', workflow: 'agentic-ai.yml'},
+].map((b) => ({
+  label: b.label,
+  href: `${GITHUB_URL}/actions/workflows/${b.workflow}`,
+  src: `${GITHUB_URL}/actions/workflows/${b.workflow}/badge.svg`,
+}));
 
-const services = [
+const services: {slug: string; title: string; icon: IconName; summary: string}[] = [
   {
     slug: 'citizen-portal',
     title: 'Citizen Portal',
     icon: 'UserRound',
-    summary: 'A Flutter-based mobile app for citizens to discover, apply for, and track government services.',
+    summary: 'A Flutter app for citizens to describe a need, check eligibility, apply in stages, pay fees, and track status.',
   },
   {
     slug: 'officer-dashboard',
     title: 'Officer Dashboard',
     icon: 'Briefcase',
-    summary: 'A React and Vite web dashboard for government officers to manage applications and workflows.',
+    summary: 'A React + Carbon dashboard (also packaged as a desktop app) for officers, department admins, and finance staff.',
   },
   {
     slug: 'ai-agents',
     title: 'AI Agent Workflows',
     icon: 'Bot',
-    summary: 'Intelligent AI agents that assist with application verification and citizen support.',
+    summary: 'Four agents — intake, eligibility, action, and validation — prepare each case before a human officer decides.',
   },
   {
     slug: 'unified-api',
     title: 'Unified Backend API',
     icon: 'Building2',
-    summary: 'A robust ASP.NET Core and PostgreSQL backend powering all platforms with secure data handling.',
+    summary: 'One ASP.NET Core (.NET 10) API on PostgreSQL + pgvector, with JWT auth and Stripe payments.',
   },
 ];
 
@@ -105,25 +91,21 @@ const communityCards: CommunityCard[] = [
   },
   {
     icon: MessageCircle,
-    title: 'Join the Discussion',
-    desc: 'Ask questions, share ideas, and talk with other people running Government Service Navigator.',
-    linkLabel: 'GitHub Discussions',
-    linkHref: `${GITHUB_URL}/discussions`,
+    title: 'Follow the Work',
+    desc: 'See what the team is working on right now and review open pull requests.',
+    linkLabel: 'Open pull requests',
+    linkHref: `${GITHUB_URL}/pulls`,
   },
 ];
 
-const QUICK_START = `git clone https://github.com/Krishmal2004/Government_Service_Navigator.git
+const QUICK_START = `git clone ${GITHUB_URL}.git
 cd Government_Service_Navigator
 
-# Postgres
-docker compose up -d
+# Configure the API (PostgreSQL + JWT settings)
+cp backend/src/.env.example backend/src/.env
 
-# Backend API
-cd backend
-dotnet run --project src/GSN.Api
-
-# Web Dashboard
-cd ../web && npm install && npm run dev`;
+# Run the API (:5119) and web dashboard (:5173) together
+cd tui-runner && npm install && npm start`;
 
 export default function Home(): React.ReactElement {
   const heroPhotoSrc = useBaseUrl('img/gsn/gsn1.jpg');
@@ -182,7 +164,7 @@ export default function Home(): React.ReactElement {
             <div className={styles.heroPhotoWrap}>
               <img
                 src={heroPhotoSrc}
-                alt="Students at a Sri Lankan school"
+                alt="Officials reviewing a city services dashboard with residents"
                 className={styles.heroPhoto}
                 width={1536}
                 height={1024}
@@ -216,8 +198,8 @@ export default function Home(): React.ReactElement {
                   Ready to deploy Government Service Navigator?
                 </h2>
                 <p className={styles.quickstartText}>
-                  Clone the repo, start Postgres, and run the .NET backend and React dashboard locally in a
-                  few commands. The setup guide walks through the rest - including the Flutter mobile app and AI agent layer.
+                  Clone the repo, point the API at a PostgreSQL database, and start the .NET backend and React
+                  dashboard together with the bundled terminal runner. The setup guide covers the rest - including the Flutter app.
                 </p>
                 <Link className="os-btn os-btn--primary" to="/docs/setup">
                   Read the Setup Guide
@@ -244,8 +226,8 @@ export default function Home(): React.ReactElement {
                 </h2>
                 <p className={styles.servicesDesc}>
                   From processing citizen requests to AI-assisted identity verification, GSN
-                  replaces disconnected tools with one consistent, API-driven system that scales
-                  with your municipality.
+                  replaces disconnected tools with one consistent, API-driven system shared by
+                  citizens, officers, and finance staff.
                 </p>
               </div>
             </div>
@@ -255,7 +237,7 @@ export default function Home(): React.ReactElement {
                 <div key={s.slug} className={`os-card ${styles.serviceCard}`}>
                   <span className={styles.serviceNumber}>{String(i + 1).padStart(2, '0')}</span>
                   <div className={styles.serviceIcon}>
-                    <DynamicIcon name={s.icon as any} size={20} strokeWidth={1.75} />
+                    <DynamicIcon name={s.icon} size={20} strokeWidth={1.75} />
                   </div>
                   <h3 className={styles.serviceTitle}>{s.title}</h3>
                   <p className={styles.serviceDesc}>{s.summary}</p>
@@ -273,8 +255,8 @@ export default function Home(): React.ReactElement {
           <Reveal>
             <div className={styles.aboutGrid}>
               <div className={styles.aboutPhotoGrid}>
-                <img src={aboutPhotoSrc1} alt="Students talking together at school" className={styles.aboutPhoto} loading="lazy" decoding="async" />
-                <img src={aboutPhotoSrc2} alt="Students playing together at school" className={styles.aboutPhoto} loading="lazy" decoding="async" />
+                <img src={aboutPhotoSrc1} alt="A citizen checking an approved application on their phone" className={styles.aboutPhoto} loading="lazy" decoding="async" />
+                <img src={aboutPhotoSrc2} alt="An officer reviewing applications on a web dashboard" className={styles.aboutPhoto} loading="lazy" decoding="async" />
               </div>
               <div className={styles.aboutCopy}>
                 <span className="os-eyebrow">About Government Service Navigator</span>
@@ -306,7 +288,7 @@ export default function Home(): React.ReactElement {
                 We&apos;re building Government Service Navigator with you
               </h2>
               <p className={styles.communityDesc}>
-                It&apos;s a volunteer-run, open-source project.
+                It&apos;s an SE3090 group project built in the open.
                 Everything happens on GitHub.
               </p>
             </div>

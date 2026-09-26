@@ -4,152 +4,66 @@ title: Local Development Setup
 sidebar_label: Local Development Setup
 ---
 
-This guide walks through setting up the full local development environment for the **Government Service Navigator (GSN)** — the .NET Backend, React Dashboard, Flutter Mobile App, and Postgres database.
+# Local Development Setup
 
-## Prerequisites
+This guide covers how the **Government Service Navigator** repo is organised for day-to-day work: who owns what, how branches and CI work, and what to run before opening a pull request. To get everything running for the first time, start with the [Setup Walkthrough](/docs/setup).
 
-Install the following tools before starting:
+## Ownership
 
-- [Git](https://git-scm.com/)
-- [Docker Desktop](https://www.docker.com/products/docker-desktop/) (for local database)
-- [.NET SDK (8.0+ recommended)](https://dotnet.microsoft.com/en-us/download)
-- [Node.js (18+ recommended)](https://nodejs.org/)
-- [Flutter SDK](https://docs.flutter.dev/get-started/install)
+Each of the four team members owns one component and one agent (see [Architecture](/docs/architecture)). `.github/CODEOWNERS` routes pull-request reviews to the right owner, so expect a review from the person whose area you touch.
 
-Optional but useful tools:
-- PostgreSQL client (e.g., pgAdmin, psql, DBeaver)
-- Code Editor: Visual Studio Code, JetBrains Rider, or Visual Studio 2022
+## Branches and pull requests
 
----
+- `main` is protected. Changes land through pull requests using `.github/pull_request_template.md`.
+- Work happens on feature branches (for example `feature/verification-compliance`). The longer-lived `Backend-Dev`, `Front-Dev`, and `Testing` branches also trigger CI.
+- Commit messages follow a Conventional-Commits style scoped by app, for example `feat(web): …`, `fix(backend): …`, `feat(mobile,api): …`, or `feat(agentic-ai): …`.
 
-## 1. Clone the repository
+## CI
+
+Each app has its own workflow in `.github/workflows/`, and each one skips its build when nothing under its folder changed:
+
+| Workflow | What it does |
+|---|---|
+| `backend-ci.yml` | Restores and builds `backend/src` with .NET 10 (Release) |
+| `agentic-ai.yml` | Checks that the required agent, tool, and test folders exist. It doesn't run `dotnet test` yet, so run the agent tests locally. |
+| `web-ci.yml` | `npm ci`, lint, `tsc --noEmit`, and `npm run build`, then uploads `web/dist` |
+| `mobile-ci.yml` | `flutter pub get` and `flutter analyze` |
+| `build-android.yml`, `ios-build.yml` | APK and unsigned IPA builds |
+| `windows-software-build.yml`, `mac-build.yml`, `linux-build.yml` | Electron desktop builds of the web dashboard |
+
+## Before you open a PR
+
+Run the checks for whatever you touched:
 
 ```bash
-git clone https://github.com/Krishmal2004/Government_Service_Navigator.git
-cd Government_Service_Navigator
+# Backend
+cd backend/src && dotnet build
+
+# Agents (xUnit, including golden cases)
+cd agentic-ai && dotnet test
+
+# Web dashboard
+cd web && npm run lint && npx tsc --noEmit && npm run build
+
+# Mobile
+cd mobile && flutter analyze && flutter test
 ```
 
-## 2. Start the database (PostgreSQL)
+There's no web test runner yet, and the Flutter test suite is still minimal. The agent tests in `agentic-ai/tests/` are the main automated suite.
 
-From the repository root, start the Postgres container in detached mode:
+## Adding to the backend
 
-```bash
-docker compose up -d
-```
+The backend is one project layered by folder ([ADR-0002](/docs/adr/0002)). A new feature usually means:
 
-This starts the database instance required for the backend API and AI agent data storage.
+1. An entity in `Models/Entities/` and a `DbSet` in `AppDbContext`
+2. A migration: `dotnet ef migrations add <Name>` (applied automatically on the next run)
+3. A service interface in `Services/Interfaces/`, its implementation, and a DI registration in `Program.cs`
+4. Request and response DTOs, plus a controller action — with `[Authorize]` (or a role) unless the endpoint is meant to be public
 
----
+## Adding an agent tool
 
-## 3. Backend API Setup (.NET Core)
+Tools live in `agentic-ai/tools/<tool-name>/`, each with a README describing its contract. Add the tool, register it in `Program.cs`, allow-list it only for the agent that needs it, and cover it with a test or golden case in `agentic-ai/tests/`.
 
-The backend powers the entire system, including the AI orchestrator agents.
+## Architecture decisions
 
-1. Navigate to the backend directory:
-   ```bash
-   cd backend
-   ```
-
-2. **Configure Environment:** Create or modify `appsettings.Development.json` to include your Postgres connection string and any necessary API keys (like LLM provider keys for the Agent layer in `GSN.Agents`).
-
-3. **Restore & Build:**
-   ```bash
-   dotnet restore
-   dotnet build
-   ```
-
-4. **Apply Migrations:**
-   Ensure the database schema is created:
-   ```bash
-   dotnet ef database update --project src/GSN.Infrastructure --startup-project src/GSN.Api
-   ```
-   *(Note: If `dotnet ef` is not installed, run: `dotnet tool install --global dotnet-ef`)*
-
-5. **Run the API:**
-   ```bash
-   dotnet run --project src/GSN.Api
-   ```
-   The API will be available at `https://localhost:7xxx` or `http://localhost:5xxx` depending on your `launchSettings.json`.
-
----
-
-## 4. Web Dashboard Setup (React)
-
-The React web application is the control panel for Verifying Officers and Administrators.
-
-1. Navigate to the web directory:
-   ```bash
-   cd web
-   ```
-
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
-
-3. **Configure Environment:** Create a `.env` file in the `web` folder to point to your local .NET API:
-   ```env
-   VITE_API_BASE_URL=http://localhost:5000
-   ```
-
-4. **Run the Dashboard:**
-   ```bash
-   npm run dev
-   ```
-   The dashboard runs on `http://localhost:5173`.
-
----
-
-## 5. Mobile App Setup (Flutter)
-
-The Flutter mobile app is the portal for Citizens and Applicants.
-
-1. Navigate to the mobile directory:
-   ```bash
-   cd mobile
-   ```
-
-2. **Fetch packages:**
-   ```bash
-   flutter pub get
-   ```
-
-3. **Run the App:**
-   ```bash
-   flutter run
-   ```
-
-Make sure your target device (iOS Simulator or Android Emulator) is running.
-*Note: Android emulators often use `10.0.2.2` instead of `localhost` to connect to your host machine's API.*
-
----
-
-## Development Workflow & Tests
-
-If you are contributing code, always run the associated tests before submitting a Pull Request:
-
-**Backend/API Tests**
-```bash
-cd backend
-dotnet test
-```
-
-**Agent AI Tests (Golden Cases)**
-```bash
-cd backend
-dotnet test tests/GSN.Agents.Tests
-```
-
-**Web Tests**
-```bash
-cd web
-npm test
-```
-
-**Flutter Mobile Tests**
-```bash
-cd mobile
-flutter test
-```
-
-For major architectural changes, please submit an Architecture Decision Record (ADR) in `docs/adr/`.
+If your change makes a real design decision — or knowingly leaves a gap — record it as an ADR in `docs/adr/` using the Context / Options Considered / Decision / Consequences template. See the [ADR index](/docs/adr).

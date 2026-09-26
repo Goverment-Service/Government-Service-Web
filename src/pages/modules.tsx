@@ -12,25 +12,25 @@ const layerMeta: Record<FeatureGroup, {order: number; eyebrow: string; title: st
     order: 1,
     eyebrow: 'Agent 1 · Supun',
     title: 'Intake & Planning',
-    desc: 'Acts as the first point of contact. It interprets what the citizen is actually asking for, matches it to the correct government service, and lays out the sequence of steps.',
+    desc: 'The first point of contact. It interprets the citizen\'s free-text need, retrieves the closest services from a pgvector knowledge base, and lays out the steps to follow. Tool: search_service_catalog.',
   },
   agent2: {
     order: 2,
     eyebrow: 'Agent 2 · Parami',
-    title: 'Eligibility, Payments & Orchestrator',
-    desc: 'Verifies whether the citizen qualifies for the matched service, handles payments and refunds, and functions as the Workflow Orchestrator triggering Agents 1, 3, and 4 in order.',
+    title: 'Eligibility & Document Analysis (+ Orchestrator)',
+    desc: 'Checks whether the citizen qualifies for the matched service and which documents are missing, using the eligibility rules plus retrieved policy text. It also acts as the Workflow Orchestrator, triggering Agents 1, 3, and 4 in order. Tools: check_eligibility_rules, get_document_requirements.',
   },
   agent3: {
     order: 3,
     eyebrow: 'Agent 3 · Krishmal',
     title: 'Action & Tool Agent',
-    desc: 'Performs the concrete actions needed to move the case forward: calculating the applicable fee, finding an open appointment slot, and pre-filling the application form.',
+    desc: 'Moves the case forward: calculates the applicable fee, proposes an appointment slot, and pre-fills the application. The draft is saved for the officer to review. Tools: calculate_fee, find_appointment_slot, prefill_application.',
   },
   agent4: {
     order: 4,
     eyebrow: 'Agent 4 · Chathuka',
     title: 'Validation & Safety',
-    desc: 'Performs a final sanity check — validating data format and screening for duplicates — before the case ever reaches a human Verifying Officer.',
+    desc: 'Runs deterministic checks on every submitted stage — schema validation, a minimum legal age, and duplicate screening — before the case reaches a human Verifying Officer. Tools: validate_schema, check_duplicate_application.',
   },
 };
 

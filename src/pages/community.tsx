@@ -1,11 +1,10 @@
 import React from 'react';
 import Link from '@docusaurus/Link';
 import Layout from '@theme/Layout';
-import {GitBranch, MessageCircle, Bug, ShieldAlert, type LucideProps} from 'lucide-react';
+import {GitBranch, GitPullRequest, Bug, ShieldAlert, type LucideProps} from 'lucide-react';
 import SeoHead from '@site/src/components/SeoHead';
+import {GITHUB_URL} from '@site/src/data/site';
 import styles from './community.module.css';
-
-const GITHUB_URL = 'https://github.com/openschool-org/openschool';
 
 type Channel = {
   icon: React.ComponentType<LucideProps>;
@@ -20,16 +19,16 @@ const channels: Channel[] = [
   {
     icon: GitBranch,
     title: 'Contribute',
-    desc: 'Set up the dev environment and open a PR against the development branch - see the Local Development Setup guide and the repo\'s CONTRIBUTING.md for the full workflow.',
+    desc: 'Set up the dev environment, branch off main, and open a PR using the repo\'s pull request template. CI runs per app (backend, web, mobile, agentic AI) on every PR.',
     linkLabel: 'Local Development Setup',
     linkTo: '/docs/contributing',
   },
   {
-    icon: MessageCircle,
-    title: 'Ask a question',
-    desc: 'Use GitHub Discussions for questions, ideas, and general conversation about the project.',
-    linkLabel: 'Open Discussions',
-    linkHref: `${GITHUB_URL}/discussions`,
+    icon: GitPullRequest,
+    title: 'Review work in progress',
+    desc: 'Feature branches land through pull requests reviewed by the component owners listed in CODEOWNERS.',
+    linkLabel: 'Open pull requests',
+    linkHref: `${GITHUB_URL}/pulls`,
   },
   {
     icon: Bug,
@@ -41,9 +40,9 @@ const channels: Channel[] = [
   {
     icon: ShieldAlert,
     title: 'Report a security issue',
-    desc: 'Please don\'t open a public issue for a vulnerability. Use GitHub\'s private vulnerability reporting (Security tab → Report a vulnerability) instead.',
-    linkLabel: 'Read the Security Policy',
-    linkHref: `${GITHUB_URL}/blob/main/SECURITY.md`,
+    desc: 'Please don\'t open a public issue for a vulnerability. Contact the maintainers privately through GitHub instead - see the repository\'s Security tab.',
+    linkLabel: 'Open the Security tab',
+    linkHref: `${GITHUB_URL}/security`,
   },
 ];
 
@@ -51,18 +50,18 @@ export default function Community(): React.ReactElement {
   return (
     <Layout
       title="Community"
-      description="OpenSchool is built in the open. Here's how to contribute code, ask a question, report a bug, or reach the maintainers.">
+      description="Government Service Navigator is built in the open. Here's how to contribute code, follow the work, report a bug, or reach the maintainers.">
       <SeoHead
         path="/community"
         title="Community - Contribute, Ask, or Report"
-        description="OpenSchool is built in the open. Here's how to contribute code, ask a question, report a bug, or reach the maintainers."
+        description="Government Service Navigator is built in the open. Here's how to contribute code, follow the work, report a bug, or reach the maintainers."
       />
       <header className="os-page-header">
         <div className="os-container">
           <div className={styles.introInner}>
             <h1 className={`os-heading ${styles.title}`}>Get involved</h1>
             <p className={`os-lead ${styles.lead}`}>
-              OpenSchool is built in the open, by volunteers. There&apos;s no sales team and no
+              Government Service Navigator is an SE3090 group project built in the open. There&apos;s no
               support inbox - everything happens on GitHub.
             </p>
           </div>
@@ -105,7 +104,7 @@ export default function Community(): React.ReactElement {
           <span className="os-eyebrow">Maintainers</span>
           <h2 className="os-heading" style={{marginBottom: '0.5rem'}}>Started and maintained by</h2>
           <p className={styles.channelValue}>
-            This project is fully maintained and operated by open source contributors - see the{' '}
+            A four-person team, each owning one component and one agent (see the Architecture docs) - see the{' '}
             <a href={`${GITHUB_URL}/graphs/contributors`} target="_blank" rel="noopener noreferrer">
               contributors graph
             </a>

@@ -1,14 +1,29 @@
 import {readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync} from 'node:fs';
 import {join, dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import matter from 'gray-matter';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const dataDir = join(__dirname, '..', 'src', 'data');
 const outDir = join(dataDir, 'generated');
 
-const CHANGELOG_OWNER = 'openschool-org';
-const CHANGELOG_REPO = 'openschool';
+const CHANGELOG_OWNER = 'Goverment-Service';
+const CHANGELOG_REPO = 'Government_Service_Navigator';
+
+// Feature frontmatter is flat `key: value` pairs, so a tiny parser avoids a
+// gray-matter dependency.
+function matter(raw) {
+  const m = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/);
+  if (!m) return {data: {}, content: raw};
+  const data = {};
+  for (const line of m[1].split(/\r?\n/)) {
+    const i = line.indexOf(':');
+    if (i === -1) continue;
+    const key = line.slice(0, i).trim();
+    const value = line.slice(i + 1).trim();
+    data[key] = /^-?\d+$/.test(value) ? Number(value) : value === 'true' ? true : value === 'false' ? false : value;
+  }
+  return {data, content: raw.slice(m[0].length)};
+}
 
 function generateFeatures() {
   const featuresDir = join(dataDir, 'features');
@@ -44,7 +59,7 @@ function generateFeatures() {
   const body = `export type FeatureIcon =
 ${[...new Set(items.map((i) => `  | '${i.icon}'`))].join('\n')};
 
-export type FeatureGroup = 'foundation' | 'structure' | 'people' | 'operations';
+export type FeatureGroup = 'agent1' | 'agent2' | 'agent3' | 'agent4';
 
 export type Feature = {
   slug: string;
@@ -144,7 +159,7 @@ async function fetchGithubReleases() {
   const headers = {
     Accept: 'application/vnd.github+json',
     'X-GitHub-Api-Version': '2022-11-28',
-    'User-Agent': 'openschool-web-build',
+    'User-Agent': 'government-service-web-build',
   };
   if (process.env.GITHUB_TOKEN) {
     headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
