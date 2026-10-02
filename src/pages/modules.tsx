@@ -12,25 +12,25 @@ const layerMeta: Record<FeatureGroup, {order: number; eyebrow: string; title: st
     order: 1,
     eyebrow: 'Agent 1 · Supun',
     title: 'Intake & Planning',
-    desc: 'The first point of contact. It interprets the citizen\'s free-text need, retrieves the closest services from a pgvector knowledge base, and lays out the steps to follow. Tool: search_service_catalog.',
+    desc: 'The first point of contact. It interprets the citizen\'s free-text need, retrieves the closest services from a pgvector knowledge base, and lays out the steps and documents to follow, snapped to the live catalog. Answers "Service Not Found" rather than guessing. Tool: search_service_catalog.',
   },
   agent2: {
     order: 2,
     eyebrow: 'Agent 2 · Parami',
     title: 'Eligibility & Document Analysis (+ Orchestrator)',
-    desc: 'Checks whether the citizen qualifies for the matched service and which documents are missing, using the eligibility rules plus retrieved policy text. It also acts as the Workflow Orchestrator, triggering Agents 1, 3, and 4 in order. Tools: check_eligibility_rules, get_document_requirements.',
+    desc: 'Checks whether the citizen qualifies for the matched service and which documents are missing for the current stage, using the eligibility rules plus retrieved policy text, and flags uploads that look unrelated. It also acts as the Workflow Orchestrator, triggering Agents 1, 3, and 4 in order. Tools: check_eligibility_rules, get_document_requirements.',
   },
   agent3: {
     order: 3,
     eyebrow: 'Agent 3 · Krishmal',
     title: 'Action & Tool Agent',
-    desc: 'Moves the case forward: calculates the applicable fee, proposes an appointment slot, and pre-fills the application. The draft is saved for the officer to review. Tools: calculate_fee, find_appointment_slot, prefill_application.',
+    desc: 'Moves the case forward: calculates the stage fee, proposes an appointment slot, and pre-fills the application for the officer to review. It also books collection appointments from plain language against live slot capacity. Tools: calculate_fee, find_appointment_slot, prefill_application.',
   },
   agent4: {
     order: 4,
     eyebrow: 'Agent 4 · Chathuka',
     title: 'Validation & Safety',
-    desc: 'Runs deterministic checks on every submitted stage — schema validation, a minimum legal age, and duplicate screening — before the case reaches a human Verifying Officer. Tools: validate_schema, check_duplicate_application.',
+    desc: 'Checks every submitted stage — schema and NIC validation, a minimum legal age, prompt-injection screening, PII masking, and duplicate flags — then briefs the Verifying Officer with a risk level and case dossier. Tools: validate_schema, check_duplicate_application.',
   },
 };
 
@@ -57,7 +57,7 @@ export default function Modules(): React.ReactElement {
           <div className={styles.introInner}>
             <h1 className={`os-heading ${styles.title}`}>The 4-Agent Pipeline</h1>
             <p className={`os-lead ${styles.lead}`}>
-              Each citizen request flows through four agents in sequence, forming a single automated pipeline. Every agent has one narrow, well-defined job and only the tools it is allow-listed to use.
+              Each citizen request flows through four agents in sequence, forming a single automated pipeline. Every agent has one narrow, well-defined job and only the tools it is allow-listed to use. The tools are deterministic; when configured, a Groq-hosted LLM reasons over their results, and the agent falls back to the tool answer if it is off or fails.
             </p>
           </div>
         </div>

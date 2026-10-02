@@ -1,6 +1,6 @@
 # Government Service Navigator — Website
 
-The project website for [Government Service Navigator](https://github.com/Goverment-Service/Government_Service_Navigator), a multi-platform system for delivering and managing digital government services. It has an ASP.NET Core API, a React officer dashboard, a Flutter citizen app, and a four-agent AI pipeline.
+The project website for [Government Service Navigator](https://github.com/Goverment-Service/Government_Service_Navigator), a multi-platform system for delivering and managing digital government services. It has an ASP.NET Core API, a React officer dashboard, a Flutter citizen app (LankaServe), and a four-agent AI pipeline.
 
 This repo is only the marketing and docs site. The product itself lives in the main repo.
 
@@ -23,8 +23,8 @@ npm run lint
 |---|---|
 | Features and Modules cards | `src/data/features/*.md`, one per component/agent. Run `npm run generate:content` to rebuild `src/data/generated/features.ts`. |
 | Docs pages | `docs/*.md`, rendered by `src/pages/docs.tsx` |
-| Architecture Decision Records | `docs/adr/`, copied from the main repo's `docs/adr/`. Re-copy them when they change there. |
+| Architecture Decision Records | `docs/adr/`, copied verbatim from the main repo's `docs/adr/` (its `README.md` becomes `index.md`). Re-copy them when they change there. |
 | Navbar and footer links | `src/mocks/docusaurus/theme-common.ts` |
 | Main repo URL | `src/data/site.ts` |
 
-`npm run generate:content` also refreshes the changelog data from the main repo's GitHub Releases. The main repo has no releases yet, so the `/changelog` route stays disabled in `src/main.tsx`.
+`npm run generate:content` also refreshes the `/changelog` page from the main repo's GitHub Releases, falling back to `src/data/changelog-cache.json` when offline. Re-run it after each release.

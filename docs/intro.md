@@ -6,27 +6,61 @@ sidebar_label: Introduction
 
 # Government Service Navigator (GSN)
 
-Government Service Navigator is a cross-platform system for delivering and managing digital government services. It was built as an SE3090 group project for five kinds of users — **Citizens**, **Verifying Officers**, **Department Admins**, **Finance staff**, and **System Admins** — served by three client apps on top of one shared API, with a four-agent AI pipeline preparing each case before a human decides on it.
+Government Service Navigator helps citizens find, apply for, pay for and track Sri Lankan government services, and gives officers one place to review and decide those applications. It was built as an SE3090 group project and is released under the MIT License.
 
-- **Backend API** — ASP.NET Core (.NET 10) on PostgreSQL, JWT-authenticated, with Stripe for online payments
-- **Agentic AI** — four agents (Intake & Planning, Eligibility & Document Analysis, Action/Tool, Validation & Safety) compiled into the backend, using a pgvector knowledge base for retrieval
-- **Web dashboard** — React 19 + TypeScript + Vite with the Carbon Design System, for officers, department admins, finance staff, and system admins; also packaged with Electron as Windows, macOS, and Linux desktop apps
-- **Mobile app** — Flutter, for citizens to describe a need, check eligibility, apply in stages, pay, request refunds, and track their applications
+A citizen describes what they need in plain language. AI agents match it to a service, check eligibility and documents, and prepare the case. Officers in the relevant department review it, and the citizen follows every step live in the mobile app, then books a time to collect the result.
+
+**Current release:** v3.0.1 — the citizen mobile app now ships as **LankaServe**.
+
+| Piece | Built with | Used by |
+|---|---|---|
+| **Backend API** (`backend/`) | ASP.NET Core on .NET 10, EF Core, PostgreSQL (Neon), SignalR, optional Redis | Everything below |
+| **Agentic AI** (`agentic-ai/`) | C# class library compiled into the API, pgvector, optional Groq LLM | The API |
+| **Web dashboard** (`web/`) | React 19, TypeScript, Vite, Carbon Design System, Tailwind, TanStack Query; also an Electron desktop app | Verifying Officers, Finance Officers, Department Admins, System Admins |
+| **Mobile app** (`mobile/`) — LankaServe | Flutter, Riverpod | Citizens |
 
 ---
 
 ## What's implemented
 
-| Area | What it covers |
-|---|---|
-| **Service Catalog & Eligibility** | Services with eligibility rules, document checklists, fee schedules, and multi-stage workflows; eligibility scoring; a rule builder and simulator for admins |
-| **Application & Case Management** | Officer-built dynamic application templates, staged submissions with document uploads, finalization, and agent-prepared drafts |
-| **Verification & Compliance** | Department-scoped review queue, verification workspace with a deposit-slip viewer, approve / reject / revise decisions with rejection codes, bulk verification, audit logs |
-| **Payments, Refunds & Analytics** | Stripe Checkout, bank deposit slips, and online-reference payments; payment ledgers; installment plans with a background monitor; refunds; daily-to-yearly analytics, report snapshots, anomaly detection, and approval-likelihood estimates |
-| **Notifications** | In-app citizen notifications, with SMTP settings for email |
-| **Agentic AI pipeline** | All four agents, their allow-listed tools, orchestrators for Agents 2–4, and xUnit tests with golden cases |
+**Citizens (LankaServe mobile app)**
+- Describe a need in plain language and get a matched service, a document list and a step-by-step plan
+- Search and filter services, and run an eligibility self-check with an AI document inspector
+- Fill in multi-stage application forms, upload documents and save drafts
+- Pay stage fees by card (Stripe), bank deposit slip or installment plan, and request refunds
+- Follow application status in real time, with in-app notifications and email
+- Book a collection appointment in plain language ("next Tuesday morning"), reschedule it, or ask for postal delivery
+- Stay signed in between launches — the session is kept in the platform's encrypted storage
 
-The AI agents don't call an external LLM. Retrieval uses an offline embedding (hashed keyword unigrams and bigrams into a 768-dimension vector) stored in pgvector, and eligibility, fee, and validation logic is deterministic. That keeps results reproducible and testable.
+**Officers and administrators (web dashboard and desktop app)**
+- **Verifying Officer:** department queue, verification workspace with the citizen's answers, documents and AI draft, AI case dossier and decision order, approve / reject / request revision, bulk verification, rejection codes, verified records, audit logs
+- **Finance Officer:** deposit slip verification, online payments, payment ledger, refunds, installment plans
+- **Department Admin:** service catalog with a searchable procedure picker, eligibility rule builder and simulator, application form templates, collection slots with a daily timeline and holidays, officer management, analytics and anomaly review
+- **System Admin:** departments (a department needs a Verifying Officer and a Finance Officer before it can go active), officers across all departments, system settings
+
+### The four agents
+
+| Agent | Job |
+|---|---|
+| 1 Intake & Planning | Turns the citizen's request into a matched service and plan |
+| 2 Eligibility & Documents | Checks eligibility rules and the documents required for the current stage against the uploads |
+| 3 Action / Tool | Prefills the application, calculates the fee, proposes and books appointment slots |
+| 4 Validation & Safety | Blocks invalid or adversarial submissions before they reach an officer, and briefs the officer |
+
+Every agent runs deterministic tools first. When `GROQ_API_KEY` is set, a Groq-hosted LLM reasons over the tool results; without it, the agents still work on the tools alone ([ADR-0015](/docs/adr/0015)). Retrieval always runs locally: keyword embeddings are hashed into 768-dimension vectors and stored in pgvector, so no embedding API is called. An officer makes every decision on an application.
+
+---
+
+## Where it runs
+
+| Piece | Where |
+|---|---|
+| API + agents | One Docker image on Azure App Service, deployed by GitHub Actions on every push to `main` that touches the backend |
+| Web dashboard | Vercel |
+| App database | Neon PostgreSQL |
+| Desktop app | GitHub Releases, built when a `v*` tag is pushed |
+
+The mobile app and desktop app use the hosted API by default. See [ADR-0016](/docs/adr/0016) for why.
 
 ---
 
@@ -34,35 +68,40 @@ The AI agents don't call an external LLM. Retrieval uses an offline embedding (h
 
 ```text
 Government_Service_Navigator/
-├── backend/src/                 # ASP.NET Core Web API (single project)
-│   ├── Controllers/             # Auth, Admin, Services, Template, Applications, Verification,
-│   │                            # Payments, Refunds, InstallmentPlans, Analytics, AnomalyDetection,
-│   │                            # AuditLogs, Notifications, IntakeAgent, EligibilityAgent,
-│   │                            # ActionAgent, RagSetup
-│   ├── Services/                # Business logic (+ Services/Interfaces)
-│   ├── Models/Entities/         # EF Core entities
-│   ├── Data/                    # AppDbContext, VectorDbContext, KnowledgeDocuments/ for RAG
-│   ├── Migrations/              # Applied automatically on startup
-│   └── .env.example             # Required environment variables
-│
-├── agentic-ai/                  # Agent library, referenced by the backend project
-│   ├── agents/                  # 01-intake-planning … 04-validation-safety
-│   ├── tools/                   # calculate-fee, check-duplicate-application, validate-schema, …
-│   ├── orchestration/           # Agent 2, Agent 3, and validation orchestrators
-│   ├── schemas/  state/  config/
-│   └── tests/                   # xUnit tests + golden-cases/
-│
-├── web/                         # React dashboard (Vite, Carbon, Tailwind) + electron/
-│   └── src/  Officer/  Admin/  Finance/
-│
-├── mobile/                      # Flutter citizen app (Riverpod)
-│   └── lib/  screens/  services/  providers/  config/app_config.dart
-│
-├── docs/                        # api.md, adr/, diagrams/, project plan
-├── tui-runner/                  # Split-pane terminal runner for backend + web (+ mobile)
-├── launch.bat / launch.command  # Double-click launchers for tui-runner
-└── .github/workflows/           # CI per app + Android, iOS, Windows, macOS, Linux builds
+├── backend/src/                 # ASP.NET Core Web API (single project, folder layering)
+│   ├── Controllers/             # Auth, Admin, Departments, Services, Templates, Applications, Verification,
+│   │                            # Payments, InstallmentPlans, Refunds, Notifications, AuditLogs, Analytics,
+│   │                            # Anomalies, CollectionSlots, the four agent controllers, RagSetup
+│   ├── Services/                # Business logic, background jobs, email templates, cache and realtime helpers
+│   ├── Validation/              # Shared request rules (NIC, phone, email, password, money, ...)
+│   ├── Models/Entities/  DTOs/  Data/  Hubs/
+│   ├── Data/KnowledgeDocuments/ # Policy documents ingested into the vector database
+│   ├── Program.cs               # DI, auth, caching, rate limiting, schema setup
+│   └── .env.example             # Environment variables
+├── agentic-ai/                  # agents/, tools/, orchestration/, schemas/, services/ (Groq)
+├── web/                         # React dashboard + Electron shell (electron/main.cjs)
+├── mobile/                      # Flutter citizen app (LankaServe)
+├── test/                        # Backend.Tests, AgenticAi.Tests (xUnit) and web (Vitest)
+├── docs/                        # Architecture, API reference, hosting, diagrams, ADRs
+├── load/                        # k6 load test
+├── tui-runner/                  # Split-pane terminal runner for local development
+├── install/install.ps1          # Windows desktop app installer
+├── Dockerfile  .dockerignore    # API + agents image
+├── docker-compose.redis.yml     # Optional local Redis
+└── launch.bat / launch.command  # Double-click launchers for tui-runner
 ```
+
+---
+
+## Known limitations
+
+The project documents these openly:
+
+- Several endpoint groups have no authentication: officer and department management, the service catalog, templates, the agent endpoints and the RAG setup. Department scoping for them is only done in the web UI ([ADR-0004](/docs/adr/0004)).
+- Collection appointments are confirmed by the booking agent without an officer.
+- Stripe payments are confirmed by the app polling Stripe; there is no webhook ([ADR-0011](/docs/adr/0011)).
+- CORS allows any origin.
+- With `GROQ_API_KEY` set, citizen details are sent to Groq.
 
 ---
 
@@ -71,4 +110,4 @@ Government_Service_Navigator/
 - **[Setup Walkthrough](/docs/setup)** — get the API, dashboard, and mobile app running
 - **[Local Development Setup](/docs/contributing)** — branches, CI, tests, and how to contribute
 - **[Architecture](/docs/architecture)** — the team split, user roles, and the four-agent pipeline
-- **[Architecture Decision Records](/docs/adr)** — the decisions behind the codebase, including known gaps
+- **[Architecture Decision Records](/docs/adr)** — 16 decisions behind the codebase, including known gaps

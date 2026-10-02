@@ -43,13 +43,13 @@ const services: {slug: string; title: string; icon: IconName; summary: string}[]
     slug: 'citizen-portal',
     title: 'Citizen Portal',
     icon: 'UserRound',
-    summary: 'A Flutter app for citizens to describe a need, check eligibility, apply in stages, pay fees, and track status.',
+    summary: 'LankaServe, a Flutter app for citizens to describe a need, check eligibility, apply in stages, pay fees, book a collection time, and track status live.',
   },
   {
     slug: 'officer-dashboard',
     title: 'Officer Dashboard',
     icon: 'Briefcase',
-    summary: 'A React + Carbon dashboard (also packaged as a desktop app) for officers, department admins, and finance staff.',
+    summary: 'A React + Carbon dashboard on Vercel (also a Windows, macOS, and Linux desktop app) for officers, finance staff, and admins.',
   },
   {
     slug: 'ai-agents',
@@ -61,7 +61,7 @@ const services: {slug: string; title: string; icon: IconName; summary: string}[]
     slug: 'unified-api',
     title: 'Unified Backend API',
     icon: 'Building2',
-    summary: 'One ASP.NET Core (.NET 10) API on PostgreSQL + pgvector, with JWT auth and Stripe payments.',
+    summary: 'One ASP.NET Core (.NET 10) API on PostgreSQL + pgvector, with JWT auth, Stripe payments, and SignalR live updates, hosted on Azure.',
   },
 ];
 
@@ -101,7 +101,7 @@ const communityCards: CommunityCard[] = [
 const QUICK_START = `git clone ${GITHUB_URL}.git
 cd Government_Service_Navigator
 
-# Configure the API (PostgreSQL + JWT settings)
+# Configure the API (PostgreSQL, JWT, optional Groq + Stripe)
 cp backend/src/.env.example backend/src/.env
 
 # Run the API (:5119) and web dashboard (:5173) together

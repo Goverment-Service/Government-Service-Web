@@ -19,6 +19,7 @@ export function useThemeConfig() {
           title: 'Resources',
           items: [
             { label: 'Docs', to: '/docs' },
+            { label: 'Changelog', to: '/changelog' },
             { label: 'Community', to: '/community' },
             { label: 'Privacy Policy', to: '/privacy' },
           ],

@@ -10,12 +10,12 @@ const principles = [
   {
     icon: ShieldCheck,
     title: 'Secure by Default',
-    desc: 'JWT authentication with token revocation on logout, role-restricted finance endpoints, and an audit trail for officer decisions.',
+    desc: 'JWT authentication with token revocation on logout, role- and department-scoped verification and finance endpoints, per-user rate limiting, and an audit trail for officer decisions.',
   },
   {
     icon: MapPinned,
     title: 'Agentic AI Architecture',
-    desc: 'Four specialized AI agents sequence citizen workflows — taking requests from intake and eligibility to action and validation.',
+    desc: 'Four specialized AI agents sequence citizen workflows — from intake and eligibility to action and validation — on deterministic tools, with optional LLM reasoning on top. An officer makes every decision.',
   },
   {
     icon: Code,
@@ -32,8 +32,8 @@ const principles = [
 const audiences = [
   {icon: UsersRound, title: 'Citizen / Applicant', desc: 'Primary Client. Search services, get guidance, submit applications, upload documents, pay fees, and track status.'},
   {icon: Presentation, title: 'Verifying Officer', desc: 'Review submitted applications, verify documents, and approve, reject, or revise AI agent drafts.'},
-  {icon: Building2, title: 'Department Admin', desc: 'Manage the service catalog, fees, eligibility rules, workflows, installment plans, and analytics.'},
-  {icon: ShieldCheck, title: 'System Admin', desc: 'Manage officer accounts, audit logs, anomaly review, and system settings. Finance staff get their own ledger and refunds workspace.'},
+  {icon: Building2, title: 'Department Admin', desc: 'Manage the service catalog, fees, eligibility rules, form templates, collection slots, officers, and analytics.'},
+  {icon: ShieldCheck, title: 'System Admin', desc: 'Manage departments, officers across all departments, and system settings. Finance Officers get their own deposit slip, ledger, installment, and refunds workspace.'},
 ];
 
 export default function About(): React.ReactElement {
