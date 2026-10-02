@@ -9,10 +9,10 @@ sidebar_label: Setup Walkthrough
 ## Prerequisites
 
 - [Git](https://git-scm.com/)
-- [.NET SDK 10.x](https://dotnet.microsoft.com/en-us/download) — the backend and `agentic-ai` both target `net10.0`
-- [Node.js 20+](https://nodejs.org/) — for `web/` and `tui-runner/`
-- [Flutter SDK](https://docs.flutter.dev/get-started/install) (Dart 3.12+) — only needed for the mobile app
-- **PostgreSQL** for the app database — a local install or a [Neon](https://neon.tech/) project
+- [.NET SDK 10.x](https://dotnet.microsoft.com/en-us/download) - the backend and `agentic-ai` both target `net10.0`
+- [Node.js 20+](https://nodejs.org/) - for `web/` and `tui-runner/`
+- [Flutter SDK](https://docs.flutter.dev/get-started/install) (Dart 3.12+) - only needed for the mobile app
+- **PostgreSQL** for the app database - a local install or a [Neon](https://neon.tech/) project
 - **PostgreSQL with the [pgvector](https://github.com/pgvector/pgvector) extension** for the agents' knowledge base
 
 Optional:
@@ -49,7 +49,7 @@ Fill in `backend/src/.env`. The essentials:
 | `GROQ_API_KEY`, `GROQ_MODEL` | Optional LLM reasoning for the agents (default model `openai/gpt-oss-120b`) |
 | `STRIPE_SECRET_KEY` | Card payments (use a `sk_test_...` key) |
 | `SMTP_*` | Email notifications |
-| `REDIS_URL` | Optional shared cache — needed only for more than one API instance |
+| `REDIS_URL` | Optional shared cache - needed only for more than one API instance |
 | `RATE_LIMIT_PER_MINUTE` | Per-user request limit (default 120) |
 | `BANK_NAME`, `BANK_BRANCH`, `BANK_ACCOUNT_NAME`, `BANK_ACCOUNT_NUMBER` | Bank details shown for installment transfers |
 
@@ -96,7 +96,7 @@ curl -X POST http://localhost:5119/api/RagSetup/seed-action-agent
 curl -X POST http://localhost:5119/api/RagSetup/ingest-local-documents
 ```
 
-Re-run these after changing services, fees or templates — the chunks are a snapshot.
+Re-run these after changing services, fees or templates - the chunks are a snapshot.
 
 ### Web dashboard
 

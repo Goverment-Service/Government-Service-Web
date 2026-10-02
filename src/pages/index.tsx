@@ -55,7 +55,7 @@ const services: {slug: string; title: string; icon: IconName; summary: string}[]
     slug: 'ai-agents',
     title: 'AI Agent Workflows',
     icon: 'Bot',
-    summary: 'Four agents — intake, eligibility, action, and validation — prepare each case before a human officer decides.',
+    summary: 'Four agents - intake, eligibility, action, and validation - prepare each case before a human officer decides.',
   },
   {
     slug: 'unified-api',
@@ -265,7 +265,7 @@ export default function Home(): React.ReactElement {
                 </h2>
                 <p className={styles.aboutText}>
                   Moving beyond paper forms and disconnected departments. Government Service Navigator
-                  provides a structured, secure system of record for public services—offering citizens a mobile
+                  provides a structured, secure system of record for public services-offering citizens a mobile
                   app to track their applications, while equipping officers with the dashboard and AI tools
                   needed to process them efficiently.
                 </p>

@@ -7,7 +7,7 @@ sidebar_label: Architecture
 # GOVERNMENT SERVICE NAVIGATOR
 ## Team Task Division & Agentic AI Architecture
 
-### 4-Member Vertical Slice Plan — Backend · Agents · Web (React) · Mobile (Flutter)
+### 4-Member Vertical Slice Plan - Backend · Agents · Web (React) · Mobile (Flutter)
 
 ---
 
@@ -15,10 +15,10 @@ sidebar_label: Architecture
 
 | # | Member | Owned Component | Owned Agent |
 |---|---|---|---|
-| 1 | Supun | Service Catalog & Eligibility Guidance | Agent 1 — Intake & Planning |
-| 2 | Krishmal | Application & Case Management | Agent 3 — Action / Tool |
-| 3 | Chathuka | Verification & Compliance | Agent 4 — Validation & Safety |
-| 4 | Parami | Payments, Refunds & Financial Analytics | Agent 2 — Eligibility & Document Analysis (+ Workflow Orchestrator) |
+| 1 | Supun | Service Catalog & Eligibility Guidance | Agent 1 - Intake & Planning |
+| 2 | Krishmal | Application & Case Management | Agent 3 - Action / Tool |
+| 3 | Chathuka | Verification & Compliance | Agent 4 - Validation & Safety |
+| 4 | Parami | Payments, Refunds & Financial Analytics | Agent 2 - Eligibility & Document Analysis (+ Workflow Orchestrator) |
 
 ---
 
@@ -36,42 +36,42 @@ sidebar_label: Architecture
 
 ## 2. How the Agent Pipeline Works
 
-Each citizen request flows through all four agents in sequence, forming a single automated pipeline. Every agent has one narrow, well-defined job and only the tools it is allow-listed to use — this keeps each stage easy to test, debug, and secure.
+Each citizen request flows through all four agents in sequence, forming a single automated pipeline. Every agent has one narrow, well-defined job and only the tools it is allow-listed to use - this keeps each stage easy to test, debug, and secure.
 
 **Pipeline Flow:**
 `Citizen Query` → `Agent 1` → `Agent 2` → `Agent 3` → `Agent 4` → `Officer Review`
 
-### Agent 1 — Intake & Planning
+### Agent 1 - Intake & Planning
 - **Owned by:** Supun (Member A)
 - **Role in pipeline:** Understands the citizen's request and builds a plan
 - **Input:** Free-text citizen query (e.g. "I need to renew my passport")
-- **Output:** Structured plan — matched service ID, processing steps, assigned agents
+- **Output:** Structured plan - matched service ID, processing steps, assigned agents
 - **Allow-listed tools:** `search_service_catalog` (done directly through the vector retriever)
 - **Description:** Acts as the first point of contact. It interprets what the citizen is actually asking for, matches it to the correct government service, and lays out the sequence of steps the request will follow. The service name is then snapped to the live catalog and the catalog's document requirements are merged in. When nothing relevant is retrieved it answers "Service Not Found" rather than guessing.
 
-### Agent 2 — Eligibility & Document Analysis (+ Workflow Orchestrator)
+### Agent 2 - Eligibility & Document Analysis (+ Workflow Orchestrator)
 - **Owned by:** Parami (Member D)
 - **Role in pipeline:** Checks eligibility and orchestrates the entire pipeline
 - **Input:** Plan from Agent 1 + citizen profile data
 - **Output:** Eligibility result (score / pass-fail) and list of missing documents
 - **Allow-listed tools:** `check_eligibility_rules`, `get_document_requirements`
-- **Description:** Verifies whether the citizen qualifies for the matched service and identifies any missing documentation, auditing only the documents required for the current workflow stage. Uploads whose file names suggest something unrelated are flagged as suspicious for the officer. It also functions as the Workflow Orchestrator — triggering Agents 1, 3 and 4 in order and persisting the state of the workflow so progress is never lost.
+- **Description:** Verifies whether the citizen qualifies for the matched service and identifies any missing documentation, auditing only the documents required for the current workflow stage. Uploads whose file names suggest something unrelated are flagged as suspicious for the officer. It also functions as the Workflow Orchestrator - triggering Agents 1, 3 and 4 in order and persisting the state of the workflow so progress is never lost.
 
-### Agent 3 — Action / Tool Agent
+### Agent 3 - Action / Tool Agent
 - **Owned by:** Krishmal (Member B)
-- **Role in pipeline:** Takes real action — fills out and prepares the application
+- **Role in pipeline:** Takes real action - fills out and prepares the application
 - **Input:** Eligibility result from Agent 2
-- **Output:** Draft application object — pre-filled fields, calculated fee, proposed appointment slot
+- **Output:** Draft application object - pre-filled fields, calculated fee, proposed appointment slot
 - **Allow-listed tools:** `calculate_fee`, `find_appointment_slot`, `prefill_application`
 - **Description:** Performs the concrete actions needed to move the case forward: calculating the applicable fee, finding an open appointment slot, and pre-filling the application form wherever possible. It also books collection appointments from plain language ("next Tuesday around 10") against the department's live slots, capacity, and working hours.
 
-### Agent 4 — Validation & Safety
+### Agent 4 - Validation & Safety
 - **Owned by:** Chathuka (Member C)
 - **Role in pipeline:** Final quality and safety check before human review
 - **Input:** Draft application from Agent 3
 - **Output:** A validated, clean application ready for officer review with a risk level and officer briefing, or a structured rejection with specific reasons
 - **Allow-listed tools:** `validate_schema`, `check_duplicate_application`
-- **Description:** Performs a final sanity check — validating the data format, screening for prompt injection, masking PII, and flagging duplicate submissions — before the case ever reaches a human Verifying Officer. It can also compile a case dossier with a risk score and queue tier, and draft a determination order for the officer.
+- **Description:** Performs a final sanity check - validating the data format, screening for prompt injection, masking PII, and flagging duplicate submissions - before the case ever reaches a human Verifying Officer. It can also compile a case dossier with a risk score and queue tier, and draft a determination order for the officer.
 
 ---
 
@@ -81,10 +81,10 @@ The agents aren't a separate service. `agentic-ai/AgenticAi.csproj` is a class l
 
 | Stage | Entry point | Called from |
 |---|---|---|
-| Agent 1 — Intake & Planning | `POST /api/IntakeAgent/ask` | Mobile "Describe your need" screen → intake plan result |
-| Agent 2 — Eligibility & Documents | `POST /api/EligibilityAgent/evaluate`, `/orchestrate` | Mobile eligibility self-check with the AI document inspector; the officer's agent draft |
-| Agent 3 — Action / Tool | `POST /api/ActionAgent/draft`, `/orchestrate`, `/book-appointment` | The officer's agent draft (`POST /api/verification/tasks/{id}/agent-draft`); mobile natural-language booking |
-| Agent 4 — Validation & Safety | Runs inside `POST /api/applications/submit` and `submit-stage`; also `/api/ValidationAgent/*` | Every stage a citizen submits; dossier, briefing, and decision order in the officer workspace |
+| Agent 1 - Intake & Planning | `POST /api/IntakeAgent/ask` | Mobile "Describe your need" screen → intake plan result |
+| Agent 2 - Eligibility & Documents | `POST /api/EligibilityAgent/evaluate`, `/orchestrate` | Mobile eligibility self-check with the AI document inspector; the officer's agent draft |
+| Agent 3 - Action / Tool | `POST /api/ActionAgent/draft`, `/orchestrate`, `/book-appointment` | The officer's agent draft (`POST /api/verification/tasks/{id}/agent-draft`); mobile natural-language booking |
+| Agent 4 - Validation & Safety | Runs inside `POST /api/applications/submit` and `submit-stage`; also `/api/ValidationAgent/*` | Every stage a citizen submits; dossier, briefing, and decision order in the officer workspace |
 | Human review | `/api/verification/tasks/*` | Officer verification workspace on the web dashboard |
 
 ### The LLM layer
@@ -93,18 +93,18 @@ Every agent runs its deterministic tools first. When `GROQ_API_KEY` is set, each
 
 - Agent 1's LLM writes the whole plan, grounded in the retrieved chunks.
 - Agent 2's LLM decides eligibility and missing documents; a code guardrail then removes anything that matches an upload.
-- Agent 3's LLM only rewrites the reasoning and adds officer notes — the draft, fee, and slot always come from the tools.
+- Agent 3's LLM only rewrites the reasoning and adds officer notes - the draft, fee, and slot always come from the tools.
 - Agent 4's LLM can't clear a submission that failed a deterministic check, but its consistency flags that survive a code filter do reject a submission.
 
 ### Retrieval
 
-Agents 1–3 retrieve context from a `KnowledgeChunks` table in a separate PostgreSQL database with the pgvector extension (`VectorDbContext`, HNSW cosine index). Embeddings are computed locally by `LocalEmbeddingService`, which hashes keyword unigrams and bigrams into a 768-dimension vector, so only text generation ever uses the network. The knowledge base is seeded from the live catalog and `backend/src/Data/KnowledgeDocuments/` through the `/api/RagSetup/*` endpoints, and admins can upload policy documents per service.
+Agents 1-3 retrieve context from a `KnowledgeChunks` table in a separate PostgreSQL database with the pgvector extension (`VectorDbContext`, HNSW cosine index). Embeddings are computed locally by `LocalEmbeddingService`, which hashes keyword unigrams and bigrams into a 768-dimension vector, so only text generation ever uses the network. The knowledge base is seeded from the live catalog and `backend/src/Data/KnowledgeDocuments/` through the `/api/RagSetup/*` endpoints, and admins can upload policy documents per service.
 
 ### Safety configuration
 
 Agent 4 is configured in `Program.cs` through `ValidationSafetyConfig`:
 
-- `BlockDuplicateSubmissions = false` — duplicates are recorded as a check and flagged for the officer, not hard-blocked
+- `BlockDuplicateSubmissions = false` - duplicates are recorded as a check and flagged for the officer, not hard-blocked
 - `MinimumLegalAge = 16`
 - `EnableAdversarialDefense = true`
 
@@ -125,4 +125,4 @@ With Redis configured, the API can run as several instances. Without it, run a s
 
 ### Known gaps
 
-The ADRs record these openly. Verification, finance, and refunds are now scoped by department on the server, but department scoping for admin, departments, the catalog, templates, and collection slots is still enforced only in the web client ([ADR-0004](/docs/adr/0004)). Several controllers — including Admin, Departments, Services, Templates, RagSetup, and all the agent endpoints — don't require authentication, which matters more now that the API is publicly hosted.
+The ADRs record these openly. Verification, finance, and refunds are now scoped by department on the server, but department scoping for admin, departments, the catalog, templates, and collection slots is still enforced only in the web client ([ADR-0004](/docs/adr/0004)). Several controllers - including Admin, Departments, Services, Templates, RagSetup, and all the agent endpoints - don't require authentication, which matters more now that the API is publicly hosted.

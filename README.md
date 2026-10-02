@@ -1,4 +1,4 @@
-# Government Service Navigator — Website
+# Government Service Navigator - Website
 
 The project website for [Government Service Navigator](https://github.com/Goverment-Service/Government_Service_Navigator), a multi-platform system for delivering and managing digital government services. It has an ASP.NET Core API, a React officer dashboard, a Flutter citizen app (LankaServe), and a four-agent AI pipeline.
 

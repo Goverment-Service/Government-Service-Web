@@ -15,7 +15,7 @@ const principles = [
   {
     icon: MapPinned,
     title: 'Agentic AI Architecture',
-    desc: 'Four specialized AI agents sequence citizen workflows — from intake and eligibility to action and validation — on deterministic tools, with optional LLM reasoning on top. An officer makes every decision.',
+    desc: 'Four specialized AI agents sequence citizen workflows - from intake and eligibility to action and validation - on deterministic tools, with optional LLM reasoning on top. An officer makes every decision.',
   },
   {
     icon: Code,

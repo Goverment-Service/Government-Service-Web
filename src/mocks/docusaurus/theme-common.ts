@@ -5,7 +5,7 @@ export function useThemeConfig() {
     footer: {
       style: 'dark',
       logo: { src: 'img/brand/logo.webp' },
-      copyright: `© ${new Date().getFullYear()} Government Service Navigator — an SE3090 group project.`,
+      copyright: `© ${new Date().getFullYear()} Government Service Navigator - an SE3090 group project.`,
       links: [
         {
           title: 'Platform',

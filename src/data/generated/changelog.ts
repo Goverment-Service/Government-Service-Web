@@ -1,4 +1,4 @@
-// GENERATED FILE — do not edit directly.
+// GENERATED FILE - do not edit directly.
 // Source of truth: the GitHub Releases API for Goverment-Service/Government_Service_Navigator, cached at src/data/changelog-cache.json.
 // Regenerate with `npm run generate:content`.
 

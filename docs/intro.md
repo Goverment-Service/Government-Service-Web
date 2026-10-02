@@ -10,14 +10,14 @@ Government Service Navigator helps citizens find, apply for, pay for and track S
 
 A citizen describes what they need in plain language. AI agents match it to a service, check eligibility and documents, and prepare the case. Officers in the relevant department review it, and the citizen follows every step live in the mobile app, then books a time to collect the result.
 
-**Current release:** v3.0.1 — the citizen mobile app now ships as **LankaServe**.
+**Current release:** v3.0.1 - the citizen mobile app now ships as **LankaServe**.
 
 | Piece | Built with | Used by |
 |---|---|---|
 | **Backend API** (`backend/`) | ASP.NET Core on .NET 10, EF Core, PostgreSQL (Neon), SignalR, optional Redis | Everything below |
 | **Agentic AI** (`agentic-ai/`) | C# class library compiled into the API, pgvector, optional Groq LLM | The API |
 | **Web dashboard** (`web/`) | React 19, TypeScript, Vite, Carbon Design System, Tailwind, TanStack Query; also an Electron desktop app | Verifying Officers, Finance Officers, Department Admins, System Admins |
-| **Mobile app** (`mobile/`) — LankaServe | Flutter, Riverpod | Citizens |
+| **Mobile app** (`mobile/`) - LankaServe | Flutter, Riverpod | Citizens |
 
 ---
 
@@ -30,7 +30,7 @@ A citizen describes what they need in plain language. AI agents match it to a se
 - Pay stage fees by card (Stripe), bank deposit slip or installment plan, and request refunds
 - Follow application status in real time, with in-app notifications and email
 - Book a collection appointment in plain language ("next Tuesday morning"), reschedule it, or ask for postal delivery
-- Stay signed in between launches — the session is kept in the platform's encrypted storage
+- Stay signed in between launches - the session is kept in the platform's encrypted storage
 
 **Officers and administrators (web dashboard and desktop app)**
 - **Verifying Officer:** department queue, verification workspace with the citizen's answers, documents and AI draft, AI case dossier and decision order, approve / reject / request revision, bulk verification, rejection codes, verified records, audit logs
@@ -107,7 +107,7 @@ The project documents these openly:
 
 ## Where to go next
 
-- **[Setup Walkthrough](/docs/setup)** — get the API, dashboard, and mobile app running
-- **[Local Development Setup](/docs/contributing)** — branches, CI, tests, and how to contribute
-- **[Architecture](/docs/architecture)** — the team split, user roles, and the four-agent pipeline
-- **[Architecture Decision Records](/docs/adr)** — 16 decisions behind the codebase, including known gaps
+- **[Setup Walkthrough](/docs/setup)** - get the API, dashboard, and mobile app running
+- **[Local Development Setup](/docs/contributing)** - branches, CI, tests, and how to contribute
+- **[Architecture](/docs/architecture)** - the team split, user roles, and the four-agent pipeline
+- **[Architecture Decision Records](/docs/adr)** - 16 decisions behind the codebase, including known gaps

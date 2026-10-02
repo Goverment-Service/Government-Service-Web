@@ -1,4 +1,4 @@
-// GENERATED FILE — do not edit directly.
+// GENERATED FILE - do not edit directly.
 // Source of truth: src/data/features/*.md
 // Regenerate with `npm run generate:content`.
 

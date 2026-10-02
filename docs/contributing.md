@@ -34,7 +34,7 @@ Each app has its own workflow in `.github/workflows/`, and each one skips its bu
 
 ## Before you open a PR
 
-Run the checks for whatever you touched. None of the test suites need a database, Groq, Stripe, or a network connection — they run against in-memory fakes.
+Run the checks for whatever you touched. None of the test suites need a database, Groq, Stripe, or a network connection - they run against in-memory fakes.
 
 ```bash
 # Backend (use -c Release while the API is running locally, since it locks bin/Debug)
@@ -50,7 +50,7 @@ cd web && npm run lint && npx tsc --noEmit && npm test && npm run build
 cd mobile && flutter analyze && flutter test
 ```
 
-Some tests deliberately pin known gaps — for example, the authorization matrix test lists today's unauthenticated endpoints. If you fix one of those gaps, update the test and the docs together. `test/README.md` in the main repo explains each suite.
+Some tests deliberately pin known gaps - for example, the authorization matrix test lists today's unauthenticated endpoints. If you fix one of those gaps, update the test and the docs together. `test/README.md` in the main repo explains each suite.
 
 ## Adding to the backend
 
@@ -59,9 +59,9 @@ The backend is one project layered by folder ([ADR-0002](/docs/adr/0002)). A new
 1. An entity in `Models/Entities/` and a `DbSet` in `AppDbContext`
 2. A migration: `dotnet ef migrations add <Name>` (applied automatically on the next run)
 3. A service interface in `Services/Interfaces/`, its implementation, and a DI registration in `Program.cs`
-4. Request and response DTOs, plus a controller action — with `[Authorize]` (or a role) unless the endpoint is meant to be public
+4. Request and response DTOs, plus a controller action - with `[Authorize]` (or a role) unless the endpoint is meant to be public
 
-Validation rules live in three places — `backend/src/Validation`, `mobile/lib/utils/validators.dart`, and `web/src/utils/validation.ts` — and are summarised in `docs/api.md`. Change all of them together.
+Validation rules live in three places - `backend/src/Validation`, `mobile/lib/utils/validators.dart`, and `web/src/utils/validation.ts` - and are summarised in `docs/api.md`. Change all of them together.
 
 Migrations are gitignored, so schema changes that must reach every environment also need idempotent SQL in the startup schema setup ([ADR-0005](/docs/adr/0005)).
 
@@ -71,4 +71,4 @@ Tools live in `agentic-ai/tools/<tool-name>/`, each with a README describing its
 
 ## Architecture decisions
 
-If your change makes a real design decision — or knowingly leaves a gap — record it as an ADR in `docs/adr/` using the Context / Options Considered / Decision / Consequences template. When a later change alters an earlier decision, add an *Amended* section to that ADR rather than rewriting it. See the [ADR index](/docs/adr).
+If your change makes a real design decision - or knowingly leaves a gap - record it as an ADR in `docs/adr/` using the Context / Options Considered / Decision / Consequences template. When a later change alters an earlier decision, add an *Amended* section to that ADR rather than rewriting it. See the [ADR index](/docs/adr).

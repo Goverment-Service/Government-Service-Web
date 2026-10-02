@@ -1,5 +1,5 @@
 /**
- * OpenSchool — plain, flat design system in the spirit of well-known
+ * OpenSchool - plain, flat design system in the spirit of well-known
  * open-source project sites (Docusaurus, Vite, Astro, Vitest): white canvas,
  * one accent color, thin 1px borders, no glass/blur/glow, minimal shadow.
  * Page-specific layout lives in each page's .module.css file.
@@ -485,7 +485,7 @@ a {
   margin: 0.3rem 0 0;
 }
 
-/* ---------- Footer (dark, flat — common on OSS project sites) ---------- */
+/* ---------- Footer (dark, flat - common on OSS project sites) ---------- */
 
 .footer {
   background: var(--os-dark-bg);

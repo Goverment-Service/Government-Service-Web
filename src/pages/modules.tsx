@@ -30,7 +30,7 @@ const layerMeta: Record<FeatureGroup, {order: number; eyebrow: string; title: st
     order: 4,
     eyebrow: 'Agent 4',
     title: 'Validation & Safety',
-    desc: 'Checks every submitted stage — schema and NIC validation, a minimum legal age, prompt-injection screening, PII masking, and duplicate flags — then briefs the Verifying Officer with a risk level and case dossier. Tools: validate_schema, check_duplicate_application.',
+    desc: 'Checks every submitted stage - schema and NIC validation, a minimum legal age, prompt-injection screening, PII masking, and duplicate flags - then briefs the Verifying Officer with a risk level and case dossier. Tools: validate_schema, check_duplicate_application.',
   },
 };
 
