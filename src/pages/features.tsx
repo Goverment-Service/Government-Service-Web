@@ -26,7 +26,7 @@ export default function Features(): React.ReactElement {
             <div className={styles.introInner}>
               <h1 className={`os-heading ${styles.title}`}>Capabilities & Operations</h1>
               <p className={`os-lead ${styles.lead}`}>
-                The four components of the platform, each paired with one agent in the AI pipeline, with the REST endpoints that back them.
+                The four components of the platform, each paired with one agent in the AI pipeline, and what each one lets citizens and officers do.
               </p>
             </div>
             <div className={styles.introPhotoWrap}>

@@ -31,13 +31,13 @@ const features: Feature[] = [
     "homeFeatured": true,
     "summary": "The service catalog, departments, eligibility rules, and the Intake & Planning agent that matches a citizen's need to a service.",
     "items": [
-      "POST /api/IntakeAgent/ask: Agent 1 turns a free-text need into a matched service, document list, and step plan, grounded in the live catalog",
-      "POST /api/services and PUT /api/services/{id}: Department Admin creates and edits a service procedure, with a searchable procedure picker",
-      "PUT /api/services/{id}/eligibility-rules, /documents, /fees: Manage the rules, document checklist, and fee schedule",
-      "PUT /api/services/{id}/workflow: Define the ordered departments a multi-stage service moves through",
-      "POST /api/services/eligibility-score: Score a citizen profile against a service's rules — match % plus missing criteria",
-      "POST /api/departments: System Admin creates departments; one goes active only once it has a Verifying Officer and a Finance Officer",
-      "POST /api/RagSetup/upload-policy: Attach policy documents to a service for the agents' pgvector knowledge base"
+      "Describe a need in plain language and get a matched service, document list, and step-by-step plan",
+      "Create and edit service procedures, with a searchable procedure picker",
+      "Manage each service's eligibility rules, document checklist, and fee schedule",
+      "Define the ordered departments a multi-stage service moves through",
+      "Score a citizen's profile against a service's rules, with a match percentage and missing criteria",
+      "Create departments that go active only once they have a Verifying Officer and a Finance Officer",
+      "Attach policy documents to a service so the agents can give policy-aware answers"
     ]
   },
   {
@@ -49,12 +49,13 @@ const features: Feature[] = [
     "homeFeatured": true,
     "summary": "Agent 2's stage-scoped eligibility and document analysis, plus payments, refunds, installments, and financial analytics.",
     "items": [
-      "POST /api/EligibilityAgent/evaluate and /orchestrate: Agent 2 checks eligibility and the current stage's documents, flagging uploads that look unrelated",
-      "POST /api/payments/checkout: Stripe Checkout for online stage fees, alongside bank deposit slips verified by Finance",
-      "GET /api/payments/{id}/ledger: Full ledger for a payment — fee breakdown, partial payments, refund history",
-      "PUT /api/payments/{id}/installment-plan: Split a fee into installments, each payable by card or bank transfer receipt",
-      "POST /api/refunds: Citizen refund request, then approve → process → complete by department-scoped finance staff",
-      "GET /api/analytics/{daily|weekly|monthly|yearly} and POST /api/anomalies/scan: Reports and anomaly flags for review"
+      "Check eligibility and the current stage's documents, flagging uploads that look unrelated",
+      "Pay stage fees online by card through Stripe Checkout",
+      "Upload bank deposit slips for Finance Officers to verify",
+      "View a full payment ledger with fee breakdown, partial payments, and refund history",
+      "Split a fee into installments, each payable by card or bank transfer receipt",
+      "Request refunds, reviewed and completed by department finance staff",
+      "Daily, weekly, monthly, and yearly reports with anomaly flags for review"
     ]
   },
   {
@@ -66,13 +67,13 @@ const features: Feature[] = [
     "homeFeatured": true,
     "summary": "Dynamic multi-stage forms, document uploads, saved drafts, Agent 3's pre-filled drafts, and natural-language collection bookings.",
     "items": [
-      "POST /api/ActionAgent/draft and /orchestrate: Agent 3 calculates the stage fee, proposes an appointment slot, and pre-fills the form",
-      "POST /api/ActionAgent/book-appointment: Book or reschedule a collection appointment in plain language against live slot capacity",
-      "POST /api/templates/create: Officers build dynamic application templates, linked to a catalog service and its stages",
-      "GET /api/applications/form/{serviceId} and /stages/{serviceId}: Load the form and stage list for a service",
-      "POST /api/applications/documents and /save-draft: Upload supporting documents and save a stage to finish later",
-      "POST /api/applications/submit-stage: Submit one workflow stage; Agent 4 validates it on the way in",
-      "/api/admin/collection-slots: Department Admin manages weekly counter hours, holidays, and a real-time daily timeline"
+      "Agent 3 calculates the stage fee, proposes an appointment slot, and pre-fills the form",
+      "Book or reschedule a collection appointment in plain language, or choose postal delivery",
+      "Officers build dynamic application form templates linked to a service and its stages",
+      "Fill in multi-stage application forms one stage at a time",
+      "Upload supporting documents and save a stage as a draft to finish later",
+      "Every submitted stage is checked by Agent 4 before it reaches an officer",
+      "Manage weekly counter hours, holidays, and a real-time daily collection timeline"
     ]
   },
   {
@@ -84,13 +85,13 @@ const features: Feature[] = [
     "homeFeatured": true,
     "summary": "Agent 4's validation and safety guardrails, then the human officer review queue, case dossier, and audit trail.",
     "items": [
-      "Agent 4 validates the NIC and schema, enforces a minimum legal age, masks PII, screens for prompt injection, and flags duplicates for the officer",
-      "GET /api/verification/tasks/pending: The officer's department-scoped review queue, updated live over SignalR",
-      "POST /api/verification/tasks/{id}/agent-draft: Run Agents 2 and 3 on an application and store the draft for review",
-      "POST /api/ValidationAgent/dossier and /decision-order: Compile a risk-scored case dossier and draft a determination order",
-      "PUT /api/verification/tasks/{id}/decision: Approve, reject, or request revision with a rejection code",
-      "POST /api/verification/tasks/bulk-verify: Decide several queued tasks in one call",
-      "GET /api/audit-logs: Searchable audit trail by performer, action, or recency"
+      "Validates the NIC and form data, enforces a minimum legal age, and screens for prompt injection",
+      "Masks sensitive details and flags duplicate applications for the officer",
+      "Department-scoped review queue that updates live",
+      "AI-prepared draft, risk-scored case dossier, and draft determination order for each case",
+      "Approve, reject, or request revision with a rejection code",
+      "Decide several queued applications at once with bulk verification",
+      "Searchable audit trail of every officer decision"
     ]
   }
 ];
