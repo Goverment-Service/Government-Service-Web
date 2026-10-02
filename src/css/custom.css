@@ -5,7 +5,15 @@
  * Page-specific layout lives in each page's .module.css file.
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+/* Arial sized to Inter's metrics, so swapping in Inter doesn't shift the layout. */
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial');
+  size-adjust: 107.12%;
+  ascent-override: 90.44%;
+  descent-override: 22.52%;
+  line-gap-override: 0%;
+}
 
 :root {
   /* ---- Palette ---- */
@@ -35,8 +43,8 @@
   --ifm-color-primary-lightest: #6e9ff7;
   --ifm-background-color: var(--os-bg) !important;
 
-  --ifm-font-family-base: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --os-font-display: 'Inter', system-ui, sans-serif;
+  --ifm-font-family-base: 'Inter Variable', 'Inter Fallback', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --os-font-display: 'Inter Variable', 'Inter Fallback', system-ui, sans-serif;
   --ifm-code-font-size: 92%;
   --ifm-heading-font-family: var(--os-font-display);
   --ifm-heading-font-weight: 700;

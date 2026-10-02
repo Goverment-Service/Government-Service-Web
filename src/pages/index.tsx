@@ -108,9 +108,9 @@ cp backend/src/.env.example backend/src/.env
 cd tui-runner && npm install && npm start`;
 
 export default function Home(): React.ReactElement {
-  const heroPhotoSrc = useBaseUrl('img/gsn/gsn1.jpg');
-  const aboutPhotoSrc1 = useBaseUrl('img/gsn/gsn2.jpg');
-  const aboutPhotoSrc2 = useBaseUrl('img/gsn/gsn3.jpg');
+  const heroPhoto = useBaseUrl('img/gsn/gsn1');
+  const aboutPhoto1 = useBaseUrl('img/gsn/gsn2');
+  const aboutPhoto2 = useBaseUrl('img/gsn/gsn3');
 
   return (
     <Layout
@@ -163,10 +163,12 @@ export default function Home(): React.ReactElement {
 
             <div className={styles.heroPhotoWrap}>
               <img
-                src={heroPhotoSrc}
+                src={`${heroPhoto}-1024.webp`}
+                srcSet={`${heroPhoto}-640.webp 640w, ${heroPhoto}-768.webp 768w, ${heroPhoto}-1024.webp 1024w`}
+                sizes="(max-width: 900px) 100vw, 50vw"
                 alt="Officials reviewing a city services dashboard with residents"
                 className={styles.heroPhoto}
-                width={1536}
+                width={1024}
                 height={1024}
                 fetchPriority="high"
                 decoding="async"
@@ -255,8 +257,8 @@ export default function Home(): React.ReactElement {
           <Reveal>
             <div className={styles.aboutGrid}>
               <div className={styles.aboutPhotoGrid}>
-                <img src={aboutPhotoSrc1} alt="A citizen checking an approved application on their phone" className={styles.aboutPhoto} loading="lazy" decoding="async" />
-                <img src={aboutPhotoSrc2} alt="An officer reviewing applications on a web dashboard" className={styles.aboutPhoto} loading="lazy" decoding="async" />
+                <img src={`${aboutPhoto1}-640.webp`} srcSet={`${aboutPhoto1}-640.webp 640w, ${aboutPhoto1}-1024.webp 1024w`} sizes="(max-width: 900px) 50vw, 25vw" width={640} height={640} alt="A citizen checking an approved application on their phone" className={styles.aboutPhoto} loading="lazy" decoding="async" />
+                <img src={`${aboutPhoto2}-640.webp`} srcSet={`${aboutPhoto2}-640.webp 640w, ${aboutPhoto2}-1024.webp 1024w`} sizes="(max-width: 900px) 50vw, 25vw" width={640} height={640} alt="An officer reviewing applications on a web dashboard" className={styles.aboutPhoto} loading="lazy" decoding="async" />
               </div>
               <div className={styles.aboutCopy}>
                 <span className="os-eyebrow">About Government Service Navigator</span>

@@ -15,7 +15,20 @@
     <meta property="og:type" content="website" />
     <meta property="og:image" content="/logo.png" />
 
-    <link rel="icon" type="image/png" href="/logo.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Start fetching the home page's LCP image before the JS bundle runs -->
+    <script>
+      if (location.pathname === '/') {
+        var l = document.createElement('link');
+        l.rel = 'preload'; l.as = 'image'; l.fetchPriority = 'high';
+        l.imageSrcset = '/img/gsn/gsn1-640.webp 640w, /img/gsn/gsn1-768.webp 768w, /img/gsn/gsn1-1024.webp 1024w';
+        l.imageSizes = '(max-width: 900px) 100vw, 50vw';
+        document.head.appendChild(l);
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

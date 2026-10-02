@@ -37,7 +37,7 @@ const audiences = [
 ];
 
 export default function About(): React.ReactElement {
-  const introPhotoSrc = useBaseUrl('img/gsn/gsn5.jpg');
+  const introPhoto = useBaseUrl('img/gsn/gsn3');
 
   return (
     <Layout
@@ -62,10 +62,15 @@ export default function About(): React.ReactElement {
             </div>
             <div className={styles.introPhotoWrap}>
               <img
-                src={introPhotoSrc}
+                src={`${introPhoto}-1024.webp`}
+                srcSet={`${introPhoto}-640.webp 640w, ${introPhoto}-768.webp 768w, ${introPhoto}-1024.webp 1024w`}
+                sizes="(max-width: 900px) 100vw, 45vw"
+                width={1024}
+                height={1024}
                 alt="An officer reviewing applications on a web dashboard"
                 className={styles.introPhoto}
                 loading="eager"
+                fetchPriority="high"
                 decoding="async"
               />
             </div>
