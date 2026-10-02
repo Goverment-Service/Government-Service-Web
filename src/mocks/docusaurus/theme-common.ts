@@ -43,6 +43,7 @@ export function useThemeConfig() {
         { label: 'Features', to: '/features', position: 'left', className: 'navbar__link' },
         { label: 'Modules', to: '/modules', position: 'left', className: 'navbar__link' },
         { label: 'Docs', to: '/docs', position: 'left', className: 'navbar__link' },
+        { label: 'Changelog', to: '/changelog', position: 'left', className: 'navbar__link' },
         { label: 'Community', to: '/community', position: 'left', className: 'navbar__link' },
         {
           href: GITHUB_URL,
